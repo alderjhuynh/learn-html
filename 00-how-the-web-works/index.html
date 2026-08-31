@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0: How The Web Actually Works</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.request-demo { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; text-align: center; }
+.request-demo .node { border: 1px solid #111; padding: 10px 8px; background: #fff; border-radius: 6px; }
+.request-demo .arrow { font-size: 18px; color: #888; }
+.inspector-demo { border: 1px dashed #bbb; background: #fffbe6; padding: 12px; font-size: 14px; }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">← Course home</a> · Phase 0: Foundations</p>
+<header>
+  <h1>0: How The Web Actually Works <span class="badge">start here</span></h1>
+  <p><em>It's just files on someone else's computer.</em> Seriously. That's the whole trick.</p>
+</header>
+<main>
+
+<section>
+  <h2>What a browser does</h2>
+  <p>You type <code>learn.html.auraea.fyi</code> and hit enter. Here's the 3-step dance:</p>
+  <div class="demo tall" style="height:120px;display:grid;place-items:center;background:#fff;">
+    <div class="request-demo" style="width:100%;max-width:560px;">
+      <div class="node"><strong>You</strong><br><small>Browser</small></div>
+      <div class="arrow">— request →</div>
+      <div class="node"><strong>Server</strong><br><small>just files</small></div>
+    </div>
+  </div>
+  <ol>
+    <li><strong>Request:</strong> Browser asks server "give me <code>/index.html</code>".</li>
+    <li><strong>HTML arrives:</strong> Server sends text file with tags.</li>
+    <li><strong>Render:</strong> Browser paints pixels from that text. That's a webpage.</li>
+  </ol>
+  <p>No magic. View source on <em>this</em> page. It's just the HTML you're reading.</p>
+<pre><code># what the server sends (simplified)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt;
+&lt;h1&gt;hello&lt;/h1&gt;</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Files vs. Servers vs. Domains</h2>
+  <table>
+    <tr><th>Word</th><th>What it is</th><th>Analogy</th></tr>
+    <tr><td><strong>File</strong></td><td><code>index.html</code> on disk</td><td>A recipe card</td></tr>
+    <tr><td><strong>Server</strong></td><td>Computer that hands out files 24/7</td><td>A library that never closes</td></tr>
+    <tr><td><strong>Domain</strong></td><td>Human-readable address to an IP</td><td>Library's street address</td></tr>
+  </table>
+  <p>When you drag <code>index.html</code> into your browser, there's <em>no server</em>. What you're doing is you're opening the file directly (<code>file:///...</code>). That's fine for learning. Deploying just means "put that file on a server so others can request it."</p>
+  <div class="callout why"><strong>Why it matters:</strong> Every path bug in Module 02 comes from confusing "file on my laptop" vs. "file on the server".</div>
+</section>
+
+<hr>
+<section>
+  <h2>Inspect Element, your superpower</h2>
+  <p>Right-click anything on this page and hit <strong>Inspect</strong>. You get DevTools.</p>
+  <div class="demo inspector-demo">
+    <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="flex:1;min-width:180px;border:1px solid #111;background:#fff;padding:8px;">
+        <strong style="font-family:-apple-system,sans-serif;font-size:13px;">This headline</strong>
+        <p style="margin:4px 0 0;font-size:13px;">Try changing me in DevTools.</p>
+      </div>
+      <div style="flex:1;min-width:180px;background:#111;color:#0f0;font-family:ui-monospace,monospace;font-size:11px;padding:8px;border-radius:6px;">
+        &lt;div&gt;<br>&nbsp;&nbsp;&lt;strong&gt;This headline&lt;/strong&gt;<br>&nbsp;&nbsp;&lt;p&gt;Try changing me…&lt;/p&gt;<br>&lt;/div&gt;
+      </div>
+    </div>
+  </div>
+<pre><code>How to open DevTools:
+  macOS:  Cmd + Option + I  or  Cmd + Option + C (inspect)
+  Win/Linux: Ctrl + Shift + I  or  F12
+  Or: right-click → Inspect</code></pre>
+  <p><strong>Try it now:</strong> Inspect the headline above, double-click the text, type "I hacked this", screenshot and congratulations, you're a hacker (this is literally how every frontend dev starts).</p>
+</section>
+
+<hr>
+<section>
+  <h2>Editor + live preview</h2>
+  <p>You need two things:</p>
+  <ol>
+    <li><strong>Editor:</strong> VS Code, Zed, Sublime, literally anything that edits <code>.html</code> as text. (I personally use VS Code)</li>
+    <li><strong>Live preview:</strong> VS Code extension "Live Server". click "Go Live", and page auto-reloads on save.</li>
+  </ol>
+<pre><code>your-first-site/
+  index.html      # the page
+  style.css       # later
+  images/
+    cat.jpg</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> If you double-click <code>index.html</code> it opens as <code>file://</code>. Watch out! links starting with <code>/</code> will break. Use Live Server (or <code>python -m http.server</code>) to get a real <code>http://localhost</code> root.</div>
+</section>
+
+<hr>
+<section class="callout exercise">
+  <strong>Exercise: screenshot hack (5 min):</strong>
+  <ol>
+    <li>Open any website you like.</li>
+    <li>Inspect Element and change its headline to something absurd.</li>
+    <li>Screenshot and send to a friend. Caption: "look what they published".</li>
+  </ol>
+  <p>Bonus: view source on this page. Find where this exercise lives in the HTML. That's your first "reading code" rep.</p>
+</section>
+
+<div class="module-nav">
+  <a href="../"><span>Home</span>Course map</a>
+  <a href="../01-your-first-tag/"><span>Next</span>1: Your First HTML Tag</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

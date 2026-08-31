@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15: Forms, Inputs &amp; Pseudo-Classes</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 4: Making It Not Ugly</p>
+<header>
+  <h1>15: Forms, Inputs &amp; Pseudo-Classes</h1>
+  <p><em>The browser gives you 80% of validation for free.</em> Use the right input types and pair every input with a label.</p>
+</header>
+<main>
+
+<section>
+  <h2>The form skeleton</h2>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <form onsubmit="event.preventDefault(); alert('pretend submit with no JS needed for a real form');"
+          style="display:grid;gap:10px;max-width:380px;font-family:-apple-system,sans-serif;font-size:14px;">
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" required style="border:1px solid #bbb;padding:8px;border-radius:6px;font-size:14px;">
+      <label for="pwd">Password</label>
+      <input id="pwd" type="password" required minlength="8" style="border:1px solid #bbb;padding:8px;border-radius:6px;font-size:14px;">
+      <label for="msg">Message</label>
+      <textarea id="msg" rows="3" placeholder="Hi…" style="border:1px solid #bbb;padding:8px;border-radius:6px;font-size:14px;resize:vertical;"></textarea>
+      <button type="submit" style="background:#111;color:#fff;border:1px solid #111;padding:10px;border-radius:6px;cursor:pointer;">Sign in</button>
+    </form>
+  </div>
+<pre><code>&lt;form&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" type="email" required&gt;
+
+  &lt;label for="pwd"&gt;Password&lt;/label&gt;
+  &lt;input id="pwd" type="password" minlength="8" required&gt;
+
+  &lt;textarea rows="3"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;Sign in&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+  <div class="callout why"><strong>Why label + for/id:</strong> Clicking the label focuses the input, meaning bigger hit area. Screen readers announce label text. Always pair them.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Input types: free validation and keyboards</h2>
+  <table>
+    <tr><th>type</th><th>What you get</th></tr>
+    <tr><td><code>email</code></td><td>Validates <code>@</code>, shows @ keyboard on mobile</td></tr>
+    <tr><td><code>password</code></td><td>Dots, show/hide toggle (browser)</td></tr>
+    <tr><td><code>number</code></td><td>Numeric keyboard, <code>min</code>/<code>max</code>/<code>step</code></td></tr>
+    <tr><td><code>tel</code></td><td>Phone keyboard</td></tr>
+    <tr><td><code>url</code></td><td>Validates URL, .com key</td></tr>
+    <tr><td><code>search</code></td><td>Clear button</td></tr>
+    <tr><td><code>checkbox</code> / <code>radio</code></td><td>Toggles / single-choice</td></tr>
+    <tr><td><code>select</code></td><td>Dropdown</td></tr>
+  </table>
+  <div class="demo" style="background:#fff;padding:12px;display:grid;gap:8px;max-width:380px;font-family:-apple-system,sans-serif;font-size:13px;">
+    <input type="email" placeholder="type=email: try 'notanemail' and submit" style="border:1px solid #bbb;padding:8px;border-radius:6px;">
+    <input type="number" min="1" max="10" placeholder="type=number min=1 max=10" style="border:1px solid #bbb;padding:8px;border-radius:6px;">
+    <label style="display:flex;gap:6px;align-items:center;"><input type="checkbox"> I agree</label>
+    <label style="display:flex;gap:6px;align-items:center;"><input type="radio" name="plan"> Free</label><label style="display:flex;gap:6px;align-items:center;"><input type="radio" name="plan"> Pro</label>
+    <select style="border:1px solid #bbb;padding:8px;border-radius:6px;"><option>Select: choose one</option><option>Cat</option><option>Dog</option></select>
+  </div>
+<pre><code>&lt;input type="email" required&gt;           &lt;!-- validates @ --&gt;
+&lt;input type="number" min="1" max="10"&gt;
+&lt;input type="checkbox" required&gt;         &lt;!-- must check --&gt;
+&lt;select&gt;&lt;option&gt;Cat&lt;/option&gt;&lt;/select&gt;</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Don't use <code>type="text"</code> for everything. Doing this means you lose mobile keyboards and free validation. Use the specific type.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Pseudo-classes and pseudo-elements</h2>
+  <div class="demo" style="background:#fff;padding:12px;display:grid;gap:10px;max-width:380px;">
+    <style>
+      .pseudo-demo input { border: 1px solid #bbb; padding: 8px; border-radius: 6px; font-size: 14px; }
+      .pseudo-demo input:hover { border-color: #0b57d0; }
+      .pseudo-demo input:focus { outline: 2px solid #0b57d0; outline-offset: 2px; border-color: #0b57d0; }
+      .pseudo-demo input:active { background: #eef6ff; }
+      .pseudo-demo .check-row label:has(input:checked) { background: #eef6ff; border-color: #0b57d0; }
+      .pseudo-demo li:nth-child(2) { background: #fff7cc; }
+      .pseudo-demo .with-before::before { content: "# "; color: #0b57d0; }
+    </style>
+    <div class="pseudo-demo" style="display:grid;gap:8px;font-family:-apple-system,sans-serif;font-size:13px;">
+      <input placeholder="hover / focus / active: try tabbing">
+      <div class="check-row"><label style="display:flex;gap:6px;align-items:center;border:1px solid #ddd;padding:6px;border-radius:6px;"><input type="checkbox"> :checked label highlights when checked</label></div>
+      <ul style="margin:0;padding-left:18px;"><li>item 1</li><li>item 2 with :nth-child(2)</li><li>item 3</li></ul>
+      <p class="with-before" style="margin:0;">::before adds marker</p>
+    </div>
+  </div>
+  <table>
+    <tr><th>Selector</th><th>When</th></tr>
+    <tr><td><code>:hover</code></td><td>Mouse over</td></tr>
+    <tr><td><code>:focus</code></td><td>Keyboard/tab focused</td></tr>
+    <tr><td><code>:active</code></td><td>Being pressed</td></tr>
+    <tr><td><code>:checked</code></td><td>Checkbox/radio ticked</td></tr>
+    <tr><td><code>:nth-child(n)</code></td><td>nth child</td></tr>
+    <tr><td><code>::before</code> / <code>::after</code></td><td>Generated content (needs <code>content: ""</code>)</td></tr>
+    <tr><td><code>:has()</code></td><td>Parent that has… (e.g., <code>label:has(:checked)</code>)</td></tr>
+  </table>
+<pre><code>input:hover { border-color: #0b57d0; }
+input:focus { outline: 2px solid #0b57d0; outline-offset: 2px; }
+input:checked { accent-color: #0b57d0; }
+li:nth-child(2) { background: #fff7cc; }
+.tag::before { content: "#"; color: #888; }
+label:has(input:checked) { background: #eef6ff; }</code></pre>
+  <div class="callout gotcha"><strong>Outline versus border:</strong> Do not remove <code>outline</code> on <code>:focus</code> without replacing it. Keyboard users need it. Use <code>outline</code> (it does not affect layout) or style <code>:focus-visible</code> for keyboard only.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Focus, cursor, and polish</h2>
+  <div class="demo" style="background:#fff;padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <button style="padding:8px 14px;border:1px solid #111;background:#fff;font-family:-apple-system,sans-serif;font-size:13px;border-radius:6px;cursor:pointer;">cursor: pointer</button>
+    <button style="padding:8px 14px;border:1px solid #ddd;background:#f4f4f4;color:#888;font-family:-apple-system,sans-serif;font-size:13px;border-radius:6px;cursor:not-allowed;">cursor: not-allowed</button>
+    <input placeholder="focus me. Tab here" style="border:1px solid #bbb;padding:8px;border-radius:6px;">
+  </div>
+<pre><code>button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: 0.6; }
+input:focus-visible { outline: 2px solid #0b57d0; outline-offset: 2px; }</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: usable form, keyboard only</h2>
+  <p>Tab through this form. All focus states are visible, labels are clickable, and validation is native.</p>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <form onsubmit="event.preventDefault();" style="display:grid;gap:10px;max-width:380px;font-family:-apple-system,sans-serif;font-size:14px;">
+      <label for="login-email">Email <span style="color:#b1005a;">*</span></label>
+      <input id="login-email" type="email" required placeholder="you@example.com" style="border:1px solid #bbb;padding:8px;border-radius:6px;">
+      <label for="login-pwd">Password <span style="color:#888;font-weight:400;">(min 8)</span></label>
+      <input id="login-pwd" type="password" minlength="8" required placeholder="••••••••" style="border:1px solid #bbb;padding:8px;border-radius:6px;">
+      <label style="display:flex;gap:6px;align-items:center;font-size:13px;"><input type="checkbox" required> I agree to terms</label>
+      <button type="submit" style="background:#111;color:#fff;border:1px solid #111;padding:10px;border-radius:6px;cursor:pointer;">Log in</button>
+      <p style="margin:0;font-size:12px;color:#666;">Try submitting empty. The browser blocks it with no JS.</p>
+    </form>
+  </div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Style a login form keyboard only (20 min)</strong>
+  <ol>
+    <li>Build the form above with correct <code>label for/id</code> and <code>type="email"</code> and <code>password</code>.</li>
+    <li>Add <code>:hover</code>, <code>:focus-visible</code>, and <code>:active</code> styles. Make focus obvious.</li>
+    <li>Style <code>:checked</code> via <code>accent-color</code> or <code>label:has(:checked)</code>.</li>
+    <li>Unplug mouse. Tab through, fill, and submit. Is every control reachable?</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../14-color-backgrounds/"><span>Prev</span>14: Color &amp; Backgrounds</a>
+  <a href="../16-transitions-animations/"><span>Next</span>16: Transitions &amp; Animations</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

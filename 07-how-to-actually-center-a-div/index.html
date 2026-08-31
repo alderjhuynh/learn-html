@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7: How to Actually Center a Div</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 2: CSS</p>
+<header>
+  <h1>7: How to Actually Center a Div</h1>
+  <p><em>Centering has a reputation as a CSS joke, but it's really just six patterns.</em> Here's each one, when to reach for it, and why it breaks if you forget <code>height</code>.</p>
+</header>
+
+<main>
+  <section id="flexbox">
+    <h2>1. Flexbox</h2>
+    <p>The modern default. Works for unknown content size, multiple children, and responsive layouts. If you only remember one method, remember this one.</p>
+    <h3>Both axes</h3>
+    <div class="demo demo-flex-both">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical */
+  height: 200px;
+}</code></pre>
+
+    <h3>Horizontal only</h3>
+    <div class="demo demo-flex-h">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent {
+  display: flex;
+  justify-content: center;
+}</code></pre>
+
+    <h3>Vertical only</h3>
+    <div class="demo demo-flex-v">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent {
+  display: flex;
+  align-items: center;
+  height: 200px;
+}</code></pre>
+    <details><summary>Try breaking it</summary>Remove <code>height: 200px</code> and vertical centering disappears, because the parent shrinks to fit only its content. Flex needs a height to center vertically against.</details>
+  </section>
+
+  <hr>
+
+  <section id="grid">
+    <h2>2. Grid</h2>
+    <h3>place-items: center</h3>
+    <div class="demo demo-grid-center">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent {
+  display: grid;
+  place-items: center; /* shorthand for align + justify */
+  height: 200px;
+}</code></pre>
+
+    <h3>place-content: center</h3>
+    <div class="demo demo-grid-content">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent {
+  display: grid;
+  place-content: center;
+  height: 200px;
+}</code></pre>
+
+    <p><code>place-items</code> centers the <em>child inside its cell</em>, while <code>place-content</code> centers the <em>entire grid</em> inside the parent. For a single child they look identical.</p>
+    <div class="callout why"><strong>When to pick which:</strong> With one child, either works, and <code>place-items</code> is shorter to type. With multiple children, <code>place-content</code> centers the grid as a whole.</div>
+  </section>
+
+  <hr>
+
+  <section id="absolute-transform">
+    <h2>3. Absolute + Transform</h2>
+    <div class="demo demo-abs-transform">
+      <div class="box">centered</div>
+    </div>
+<pre><code>.parent { position: relative; height: 200px; }
+.child {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}</code></pre>
+    <p>How it works:</p>
+    <ol>
+      <li><code>top:50%; left:50%</code> moves the child's top-left corner to the center.</li>
+      <li><code>translate(-50%,-50%)</code> pulls it back by half of its <em>own</em> size.</li>
+    </ol>
+    <div class="callout gotcha"><strong>Gotcha:</strong> The parent needs <code>position: relative</code> (or any non-static value) to act as the containing block. Otherwise the child positions against the viewport. This also takes the element out of flow, so siblings ignore it.</div>
+  </section>
+
+  <hr>
+
+  <section id="absolute-inset">
+    <h2>4. Absolute + Inset <span class="badge">modal favorite</span></h2>
+    <h3>Centered modal (120 by 80)</h3>
+    <div class="demo demo-abs-inset">
+      <div class="box fixed">centered</div>
+    </div>
+<pre><code>.parent { position: relative; height: 200px; }
+.child {
+  position: absolute;
+  inset: 0;        /* top/right/bottom/left: 0 */
+  width: 120px; height: 80px;
+  margin: auto;
+}</code></pre>
+
+    <h3>Modern shorthand, no fixed size needed</h3>
+    <div class="demo demo-abs-inset2">
+      <div class="box fixed">centered</div>
+    </div>
+<pre><code>.child {
+  position: absolute;
+  inset: 0;
+  width: fit-content; height: fit-content;
+  margin: auto;
+}</code></pre>
+    <p><code>inset: 0</code> stretches the absolutely positioned box to all four edges, then <code>margin: auto</code> centers the fixed-size box inside that stretched area. It's a clean pattern for modals.</p>
+  </section>
+
+  <hr>
+
+  <section id="margin-auto">
+    <h2>5. Margin Auto</h2>
+    <h3>Horizontal center (block)</h3>
+    <div class="demo demo-margin-auto">
+      <div class="box fixed-width">centered</div>
+    </div>
+<pre><code>.child {
+  width: 140px;       /* must be less than the parent */
+  margin: 0 auto;     /* or margin-inline: auto */
+  display: block;
+}</code></pre>
+    <p>On its own, <code>margin: auto</code> can't center vertically, except inside flex or grid, where <code>margin: auto</code> on a child centers it on that axis too.</p>
+<pre><code>/* vertical centering via flex + margin auto, no justify/align needed */
+.parent { display: flex; }
+.child  { margin: auto; }</code></pre>
+    <div class="demo demo-flex-margin-auto">
+      <div class="box">margin: auto</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="text-align">
+    <h2>6. Text Align</h2>
+    <h3>Inline children</h3>
+    <div class="demo demo-text-align">
+      <span class="box inline">one</span>
+      <span class="box inline">two</span>
+      <span class="box inline">three</span>
+    </div>
+<pre><code>.parent { text-align: center; }
+.child  { display: inline-block; }</code></pre>
+
+    <h3>Line-height trick (single line, vertical)</h3>
+    <div class="demo demo-line-height">
+      <span>centered text</span>
+    </div>
+<pre><code>/* single-line vertical center, brittle for wrapping text */
+.parent {
+  height: 80px;
+  line-height: 80px; /* = height */
+  text-align: center;
+}</code></pre>
+    <div class="callout gotcha"><strong>Gotcha:</strong> The <code>line-height</code> trick breaks on multi-line text, since each line spreads out to 80px apart. Use it only for single-line labels. Prefer flex or grid for anything real.</div>
+  </section>
+
+  <hr>
+
+  <section id="cheatsheet">
+    <h2>Cheat sheet</h2>
+    <table>
+      <tr><th>Method</th><th>Use case</th><th>Needs fixed size?</th><th>Needs height?</th></tr>
+      <tr><td><strong>Flexbox</strong></td><td>Default for everything</td><td>No</td><td>For vertical</td></tr>
+      <tr><td><strong>Grid</strong></td><td>Single child or grid layout</td><td>No</td><td>For vertical</td></tr>
+      <tr><td><strong>Absolute + Transform</strong></td><td>Overlay or exact center over parent</td><td>No</td><td>Yes (parent)</td></tr>
+      <tr><td><strong>Absolute + Inset + margin</strong></td><td>Modal with known or fit-content size</td><td>Yes (or fit-content)</td><td>Yes (parent)</td></tr>
+      <tr><td><strong>Margin auto</strong></td><td>Horizontal block centering</td><td>Yes (width less than parent)</td><td>No (horizontal only)</td></tr>
+      <tr><td><strong>Text-align</strong></td><td>Inline or text children</td><td>No</td><td>Line-height hack for single line</td></tr>
+    </table>
+    <p><strong>Rule of thumb:</strong> New project, use Flexbox. Already using Grid, use <code>place-items: center</code>. Modal, use Absolute + Inset. Horizontal block, use <code>margin: auto</code>. Text, use <code>text-align</code>.</p>
+  </section>
+
+  <hr>
+
+  <footer>
+    <p><small>Resize the window; all demos are responsive. Open <code>style.css</code> to see the raw CSS.</small></p>
+  </footer>
+
+  <div class="module-nav">
+    <a href="../06-box-model/"><span>Prev</span>6: The Box Model</a>
+    <a href="../08-display-flow/"><span>Next</span>8: Display, Flow &amp; Why Inline Feels Broken</a>
+  </div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

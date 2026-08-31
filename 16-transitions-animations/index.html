@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16: Transitions &amp; "Wow" Without JS</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+.card-hover { border: 1px solid #ddd; padding: 16px; background: #fff; border-radius: 12px; transition: transform 180ms ease, box-shadow 180ms ease; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.btn-lift { background: #111; color: #fff; border: 1px solid #111; padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: transform 120ms ease, background 150ms ease; font-family: -apple-system, sans-serif; font-size: 13px; }
+.btn-lift:hover { transform: translateY(-1px); background: #222; }
+.btn-lift:active { transform: translateY(0); }
+.spinner { width: 28px; height: 28px; border: 3px solid #ddd; border-top-color: #0b57d0; border-radius: 50%; animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.shimmer { background: linear-gradient(90deg,#eee 25%,#f8f8f8 50%,#eee 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 4: Making It Not Ugly</p>
+<header>
+  <h1>16: Transitions &amp; "Wow" Without JS</h1>
+  <p><em>Motion for polish, not for nausea.</em> A little <code>transform</code> and <code>transition</code> makes any site feel alive without JavaScript.</p>
+</header>
+<main>
+
+<section>
+  <h2>Transition: smooth between states</h2>
+  <div class="demo" style="background:#fff;padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+    <button class="btn-lift">Hover me to lift</button>
+    <span style="font-family:-apple-system,sans-serif;font-size:12px;color:#666;"><code>transition: transform 120ms ease</code></span>
+  </div>
+<pre><code>.btn {
+  transition: transform 120ms ease, background 150ms ease;
+}
+.btn:hover  { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }</code></pre>
+  <table>
+    <tr><th>Prop</th><th>Example</th><th>Notes</th></tr>
+    <tr><td><code>transition</code></td><td><code>transition: opacity 200ms ease</code></td><td>property plus duration plus timing</td></tr>
+    <tr><td><code>transform</code></td><td><code>translateY(-4px)</code>, <code>scale(1.05)</code></td><td>GPU-friendly, does not reflow</td></tr>
+    <tr><td><code>opacity</code></td><td><code>0 to 1</code></td><td>Also cheap to animate</td></tr>
+  </table>
+  <div class="callout why"><strong>Animate cheap properties:</strong> <code>transform</code> and <code>opacity</code> are smooth (GPU). Avoid animating <code>width</code>, <code>height</code>, or <code>margin</code>. They trigger layout and cause jank.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Transforms: move, scale, rotate</h2>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="border:1px solid #ddd;padding:12px;text-align:center;background:#fafafa;"><div style="display:inline-block;border:1px solid #111;background:#fff;padding:8px;transform:translateY(-6px);">translateY(-6px)</div></div>
+      <div style="border:1px solid #ddd;padding:12px;text-align:center;background:#fafafa;"><div style="display:inline-block;border:1px solid #111;background:#fff;padding:8px;transform:scale(1.15);">scale(1.15)</div></div>
+      <div style="border:1px solid #ddd;padding:12px;text-align:center;background:#fafafa;"><div style="display:inline-block;border:1px solid #111;background:#fff;padding:8px;transform:rotate(6deg);">rotate(6deg)</div></div>
+    </div>
+  </div>
+<pre><code>.a { transform: translate(-50%, -50%); } /* callback to Module 7 */
+.b { transform: scale(1.05); }
+.c { transform: rotate(6deg); }
+.d { transform: translateY(-4px) scale(1.02); } /* combine */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Animation and @keyframes</h2>
+  <div class="demo" style="background:#fff;padding:14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="spinner" aria-hidden="true"></div>
+      <span style="font-family:-apple-system,sans-serif;font-size:13px;">Loading…</span>
+    </div>
+    <div style="width:120px;height:48px;border:1px solid #ddd;border-radius:8px;" class="shimmer"></div>
+    <span style="font-family:-apple-system,sans-serif;font-size:12px;color:#666;">shimmer</span>
+  </div>
+<pre><code>/* spinner */
+.spinner {
+  width: 28px; height: 28px;
+  border: 3px solid #ddd;
+  border-top-color: #0b57d0;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* shimmer placeholder */
+.shimmer {
+  background: linear-gradient(90deg,#eee 25%,#f8f8f8 50%,#eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>prefers-reduced-motion: respect the user</h2>
+<pre><code>@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}</code></pre>
+  <p>Some users disable animations (vestibular disorders). This query turns off motion for them. Include it.</p>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Do not use infinite loops on content. Spinners are only for loading. Decorative infinite animation is distracting and hurts battery.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: card hover and spinner</h2>
+  <div class="demo" style="background:#fafafa;padding:16px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;">
+      <div class="card-hover"><strong style="font-family:-apple-system,sans-serif;font-size:14px;">Hover me</strong><br><small style="font-family:-apple-system,sans-serif;color:#666;">translateY + shadow</small></div>
+      <div class="card-hover" style="display:grid;place-items:center;gap:6px;text-align:center;"><div class="spinner"></div><small style="font-family:-apple-system,sans-serif;color:#666;">pure CSS spinner</small></div>
+      <div style="border:1px solid #ddd;padding:16px;background:#fff;border-radius:12px;text-align:center;"><div style="width:100%;height:10px;background:#eee;border-radius:999px;overflow:hidden;"><div style="width:60%;height:100%;" class="shimmer"></div></div><small style="font-family:-apple-system,sans-serif;color:#666;">shimmer bar</small></div>
+    </div>
+  </div>
+<pre><code>.card {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}</code></pre>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Card hover and loading spinner (15 min)</strong>
+  <ol>
+    <li>Take a card from Module 09 or 14 and add <code>transition: transform 180ms ease, box-shadow 180ms ease</code>.</li>
+    <li>Add <code>:hover { transform: translateY(-4px); box-shadow: … }</code></li>
+    <li>Build the spinner with <code>border-top-color</code> and <code>@keyframes spin</code>.</li>
+    <li>Add <code>@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }</code>.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../15-forms-inputs/"><span>Prev</span>15: Forms &amp; Inputs</a>
+  <a href="../17-capstone/"><span>Next</span>17: Capstone</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

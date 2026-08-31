@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10: Grid</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 3: CSS Layout</p>
+<header>
+  <h1>10: Grid</h1>
+  <p><em>Flexbox handles one dimension. Grid handles two.</em> If you can think in rows and columns at the same time, you can use grid.</p>
+</header>
+<main>
+
+<section>
+  <h2>Grid in 30 seconds</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div style="border:1px solid #111;background:#eef6ff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">1</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">2</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">3</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">4</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">5</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">6</div>
+    </div>
+  </div>
+<pre><code>.parent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+  gap: 8px;
+}</code></pre>
+  <p><code>1fr</code> means one fraction of the available space. Three <code>1fr</code> values split it into thirds.</p>
+</section>
+
+<hr>
+<section>
+  <h2>Units: fr, repeat(), minmax()</h2>
+  <table>
+    <tr><th>Unit</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>fr</code></td><td>fraction of free space</td><td><code>1fr 2fr</code>, second column twice as wide</td></tr>
+    <tr><td><code>repeat()</code></td><td>shorthand</td><td><code>repeat(3, 1fr)</code> equals <code>1fr 1fr 1fr</code></td></tr>
+    <tr><td><code>minmax()</code></td><td>min and max</td><td><code>minmax(200px, 1fr)</code>, at least 200px</td></tr>
+  </table>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <p class="demo-label" style="margin-top:0;">repeat(3, 1fr), equal columns</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;"><span style="border:1px solid #111;padding:6px;text-align:center;background:#eef6ff;">1fr</span><span style="border:1px solid #111;padding:6px;text-align:center;background:#eef6ff;">1fr</span><span style="border:1px solid #111;padding:6px;text-align:center;background:#eef6ff;">1fr</span></div>
+    <p class="demo-label">1fr 2fr, proportional</p>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;"><span style="border:1px solid #111;padding:6px;text-align:center;background:#eef6ff;">1fr</span><span style="border:1px solid #111;padding:6px;text-align:center;background:#d4edda;">2fr</span></div>
+    <p class="demo-label">200px 1fr, fixed plus flexible</p>
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:6px;"><span style="border:1px solid #111;padding:6px;text-align:center;background:#fff7cc;">200px</span><span style="border:1px solid #111;padding:6px;text-align:center;background:#eef6ff;">1fr</span></div>
+  </div>
+<pre><code>/* equal thirds */
+.grid { grid-template-columns: repeat(3, 1fr); }
+
+/* sidebar + main */
+.layout { grid-template-columns: 200px 1fr; }
+
+/* responsive without media query, see below */
+.auto { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Centering callback: place-items vs. place-content</h2>
+  <p>Both came up in Module 7. Now you can see why they exist.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">place-items: center</p>
+      <div style="display:grid;place-items:center;height:100px;border:1px dashed #bbb;"><span style="border:1px solid #111;padding:6px;background:#fff;">child in cell</span></div>
+      <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#888;">centers the child inside its grid cell</p>
+    </div>
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">place-content: center</p>
+      <div style="display:grid;place-content:center;height:100px;border:1px dashed #bbb;"><span style="border:1px solid #111;padding:6px;background:#fff;">grid centered</span></div>
+      <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#888;">centers the entire grid inside the parent</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+<section>
+  <h2>Spanning and areas</h2>
+  <h3>grid-column / grid-row</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+      <div style="grid-column:1/3;border:1px solid #111;background:#eef6ff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">spans 2 columns, <code>grid-column: 1 / 3</code></div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">1 col</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">1</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">2</div>
+      <div style="border:1px solid #111;background:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">3</div>
+    </div>
+  </div>
+<pre><code>.hero { grid-column: 1 / 3; } /* span from line 1 to 3 */
+.full { grid-column: 1 / -1; } /* span all columns */</code></pre>
+
+  <h3>grid-template-areas: named layout</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:1fr 3fr;grid-template-areas:'hd hd' 'nav main' 'ft ft';gap:6px;font-family:-apple-system,sans-serif;font-size:12px;text-align:center;">
+      <div style="grid-area:hd;border:1px solid #111;background:#111;color:#fff;padding:8px;">header</div>
+      <div style="grid-area:nav;border:1px solid #111;background:#fafafa;padding:12px;">nav</div>
+      <div style="grid-area:main;border:1px solid #111;background:#eef6ff;padding:12px;">main content</div>
+      <div style="grid-area:ft;border:1px solid #111;background:#f4f4f4;padding:8px;">footer</div>
+    </div>
+  </div>
+<pre><code>.page {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-template-areas:
+    "hd hd"
+    "nav main"
+    "ft ft";
+}
+.page header { grid-area: hd; }
+.page nav    { grid-area: nav; }
+.page main   { grid-area: main; }
+.page footer { grid-area: ft; }</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Flex vs. Grid: a decision guide</h2>
+  <table>
+    <tr><th>Question</th><th>Answer</th><th>Use</th></tr>
+    <tr><td>Layout in one direction?</td><td>Row OR column</td><td>Flex</td></tr>
+    <tr><td>Layout in two directions?</td><td>Rows AND columns</td><td>Grid</td></tr>
+    <tr><td>Content-driven (unknown count)?</td><td>Wrap, distribute</td><td>Flex</td></tr>
+    <tr><td>Layout-driven (template)?</td><td>Fixed template</td><td>Grid</td></tr>
+  </table>
+  <div class="callout why"><strong>They compose:</strong> Use grid for page layout and flex for the components inside it. A grid cell can be a flex container, and a flex item can be a grid.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: a magazine layout, flex vs. grid</h2>
+  <p>Resize the window to see grid's <code>auto-fit</code> responsiveness for free.</p>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+      <div style="border:1px solid #111;padding:10px;background:#111;color:#fff;font-family:-apple-system,sans-serif;font-size:13px;grid-column:span 2;">Featured, spans 2 columns</div>
+      <div style="border:1px solid #111;padding:10px;background:#fafafa;font-family:-apple-system,sans-serif;font-size:13px;">Story A</div>
+      <div style="border:1px solid #111;padding:10px;background:#fafafa;font-family:-apple-system,sans-serif;font-size:13px;">Story B</div>
+      <div style="border:1px solid #111;padding:10px;background:#fafafa;font-family:-apple-system,sans-serif;font-size:13px;">Story C</div>
+      <div style="border:1px solid #111;padding:10px;background:#fafafa;font-family:-apple-system,sans-serif;font-size:13px;">Story D</div>
+    </div>
+  </div>
+<pre><code>.mag {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+.mag .featured { grid-column: span 2; }</code></pre>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Magazine layout, flex vs. grid (20 min)</strong>
+  <ol>
+    <li>Build the magazine layout above with grid.</li>
+    <li>Rebuild the same layout with flex (<code>flex-wrap</code> plus <code>flex: 1 1 140px</code>) and compare the code.</li>
+    <li>Make a second version with <code>grid-template-areas</code> for a full header, nav, main, footer layout.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../09-flexbox/"><span>Prev</span>9: Flexbox</a>
+  <a href="../11-position-stacking/"><span>Next</span>11: Position &amp; Stacking</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

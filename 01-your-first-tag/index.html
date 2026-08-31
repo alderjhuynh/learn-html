@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1: Your First HTML Tag</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 0: Foundations</p>
+<header>
+  <h1>1: Your First HTML Tag</h1>
+  <p><em>Hello World, but HTMLified.</em> Every page is the same 4-tag shell. You only have to memorize it once, and you can copy it forever.</p>
+</header>
+<main>
+
+<section>
+  <h2>The boilerplate you can copy forever</h2>
+  <p>Every HTML page is a text file with this skeleton. Browsers are forgiving if you forget bits, but write it anyway.</p>
+<pre><code>&lt;!DOCTYPE html&gt;         &lt;!-- "hey browser, this is modern HTML" --&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;                  &lt;!-- meta, not visible --&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;My page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;                  &lt;!-- everything visible goes here --&gt;
+  &lt;h1&gt;Hello, world&lt;/h1&gt;
+  &lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  <div class="callout why"><strong>Why it works:</strong> <code>&lt;!DOCTYPE html&gt;</code> prevents the browser from thinking it's HTML from the 90's! <code>&lt;head&gt;</code> is metadata; <code>&lt;body&gt;</code> is what you see. The <code>viewport</code> meta makes mobile not zoomed-out (see more in Module 12).</div>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <div style="border:1px solid #ddd;padding:12px;background:#f4f4f4;font-family:ui-monospace,monospace;font-size:12px;">
+      <span style="color:#888;">&lt;h1&gt;</span>Hello, world<span style="color:#888;">&lt;/h1&gt;</span><br>
+      <span style="color:#888;">&lt;p&gt;</span>This is a paragraph.<span style="color:#888;">&lt;/p&gt;</span>
+    </div>
+    <div style="margin-top:10px;border:1px solid #111;padding:12px;background:#fff;">
+      <h1 style="margin:0 0 6px;font-size:22px;border:none;padding:0;">Hello, world</h1>
+      <p style="margin:0;">This is a paragraph.</p>
+    </div>
+    <p class="demo-label">The top is the code,</p>
+    <p class="demo-label">The bottom is how it's rendered</p>
+  </div>
+</section>
+
+<hr>
+<section>
+  <h2>Tags, attributes, nesting, comments</h2>
+  <div class="demo" style="background:#fff;padding:12px;font-family:ui-monospace,monospace;font-size:13px;line-height:1.8;">
+    <span style="color:#0b57d0;">&lt;tag</span> <span style="color:#b1005a;">attribute</span>=<span style="color:#0a7d33;">"value"</span><span style="color:#0b57d0;">&gt;</span>content<span style="color:#0b57d0;">&lt;/tag&gt;</span> — normal tag<br>
+    <span style="color:#0b57d0;">&lt;br&gt;</span> or <span style="color:#0b57d0;">&lt;br /&gt;</span> — void (no closing)<br>
+    <span style="color:#888;">&lt;!-- comment, not rendered --&gt;</span>
+  </div>
+<pre><code>&lt;!-- nesting: tags inside tags, like boxes in boxes --&gt;
+&lt;p&gt;I am &lt;strong&gt;bold&lt;/strong&gt; and &lt;em&gt;italic&lt;/em&gt;.&lt;/p&gt;
+
+&lt;!-- WRONG: overlapping tags --&gt;
+&lt;p&gt;&lt;strong&gt;oops&lt;/p&gt;&lt;/strong&gt;  &lt;!-- don't do this --&gt;</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Not all tags need closing. Void tags: <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;meta&gt;</code>. Don't write <code>&lt;br&gt;&lt;/br&gt;</code>.</div>
+</section>
+
+<hr>
+<section>
+  <h2>The six headings + friends</h2>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <h1 style="margin:0;font-size:24px;border:none;padding:0;">h1: Page title</h1>
+    <h2 style="margin:6px 0 0;font-size:18px;border:none;padding:0;">h2: Section</h2>
+    <h3 style="margin:6px 0 0;font-size:15px;text-transform:none;letter-spacing:0;color:#000;">h3: Subsection</h3>
+    <h6 style="margin:6px 0 0;font-size:12px;color:#666;text-transform:uppercase;letter-spacing:0.06em;font-family:-apple-system,sans-serif;">h6: Tiny</h6>
+    <hr style="margin:10px 0;">
+    <p style="margin:6px 0 0;">p: paragraph. <strong>strong: bold</strong> <em>em: italic</em> <br>br: line break </p>
+    <hr style="margin:10px 0;">
+    <p style="margin:0;"><code>hr</code> (as shown above) is a horizontal line.</p>
+  </div>
+<pre><code>&lt;h1&gt;My Recipe&lt;/h1&gt;
+&lt;h2&gt;Ingredients&lt;/h2&gt;
+&lt;p&gt;Flour, &lt;strong&gt;500g&lt;/strong&gt;. Don't skip it.&lt;/p&gt;
+&lt;h2&gt;Method&lt;/h2&gt;
+&lt;p&gt;Mix &lt;em&gt;gently&lt;/em&gt;.&lt;br&gt;Rest 10 min.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Serves 4.&lt;/p&gt;</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Don't pick <code>&lt;h3&gt;</code> because it "looks smaller". Headings are <em>hierarchy</em>, not font size. Skipping from <code>h1</code> to <code>h4</code> confuses screen readers. You can style size with CSS later.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: headings hierarchy</h2>
+  <p>Below uses only tags from this module. no CSS.</p>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <h1 style="margin:0 0 6px;border:none;padding:0;font-size:22px;">Ada, the Cat &amp; Part-time Gremlin</h1>
+    <p style="margin:0 0 8px;color:#444;font-size:14px;">Loves boxes, hates closed doors. Based in California.</p>
+    <h2 style="margin:10px 0 4px;border:none;padding:0;font-size:16px;">About</h2>
+    <p style="margin:0;font-size:14px;">I am a tabby with <strong>strong opinions</strong> about vacuum cleaners and a <em>deep love</em> for sunbeams.</p>
+    <h2 style="margin:10px 0 4px;border:none;padding:0;font-size:16px;">Fun facts</h2>
+    <p style="margin:0;font-size:14px;">Knocks cups off tables.<br>Expert in <code>hr</code>. see below.</p>
+    <hr>
+    <p style="margin:0;font-size:13px;color:#666;"><small>Last updated: today</small></p>
+  </div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: One-page "About Me":</strong>
+  <p>Create <code>index.html</code> with only tags from this module. It must have:</p>
+  <ul>
+    <li>One <code>&lt;h1&gt;</code> (your name / title)</li>
+    <li>At least two <code>&lt;h2&gt;</code> sections</li>
+    <li>Three <code>&lt;p&gt;</code>, one with <code>&lt;strong&gt;</code> and one with <code>&lt;em&gt;</code></li>
+    <li>One <code>&lt;br&gt;</code> and one <code>&lt;hr&gt;</code></li>
+  </ul>
+  <p>Open it in browser. View source. Does the outline make sense if you read only headings?</p>
+  <details><summary>Starter template</summary>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;meta name="viewport" content="width=device-width,initial-scale=1.0"&gt;&lt;title&gt;About Me&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Your Name&lt;/h1&gt;
+  &lt;h2&gt;About&lt;/h2&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+  </details>
+</section>
+
+<div class="module-nav">
+  <a href="../00-how-the-web-works/"><span>Prev</span>0: How The Web Works</a>
+  <a href="../02-links-images-paths/"><span>Next</span>2: Links, Images &amp; Paths</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

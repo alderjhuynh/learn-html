@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6: The Box Model</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.box-demo { display: grid; place-items: center; padding: 20px; background: #eef6ff; border: 1px solid #a8c7f0; }
+.box-demo .margin { background: #f8d7da; padding: 14px; border: 1px dashed #c99; }
+.box-demo .border { background: #fff3cd; padding: 14px; border: 3px solid #111; }
+.box-demo .padding { background: #d4edda; padding: 14px; border: 1px solid #8fd19b; }
+.box-demo .content { background: #fff; border: 1px solid #111; padding: 10px 18px; font-family: -apple-system, sans-serif; font-size: 13px; }
+.collapse-demo { background: #fff; border: 1px solid #ddd; padding: 0; overflow: hidden; }
+.collapse-demo div { font-family: -apple-system, sans-serif; font-size: 13px; text-align: center; padding: 12px; }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 2: CSS</p>
+<header>
+  <h1>6: The Box Model</h1>
+  <p><em>Every element on the page is a rectangle made of four stacked layers.</em> Understand margin, border, padding, and content, and most CSS sizing bugs stop being mysterious.</p>
+</header>
+<main>
+
+<section>
+  <h2>The four layers</h2>
+  <p>Every element is a rectangle built from the same four layers, content in the middle, then padding, then border, then margin on the outside.</p>
+  <div class="demo" style="height:auto;padding:16px;background:#fff;">
+    <div class="box-demo">
+      <div class="margin">
+        <div style="font-size:11px;text-align:center;color:#8b0000;font-family:-apple-system,sans-serif;">margin: space outside, transparent</div>
+        <div class="border">
+          <div style="font-size:11px;text-align:center;font-family:-apple-system,sans-serif;">border: the edge</div>
+          <div class="padding">
+            <div style="font-size:11px;text-align:center;color:#14522a;font-family:-apple-system,sans-serif;">padding: space inside</div>
+            <div class="content">content: text, image, children</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;font-family:-apple-system,sans-serif;font-size:11px;color:#888;margin:8px 0 0;">Order from the center out: content, then padding, then border, then margin.</p>
+  </div>
+<pre><code>.card {
+  width: 300px;              /* content width (by default) */
+  padding: 16px;             /* inside space */
+  border: 1px solid #ddd;    /* edge */
+  margin: 20px auto;         /* outside space, auto centers block */
+}</code></pre>
+  <div class="callout why"><strong>Why it works:</strong> DevTools has a Computed tab with a Box Model diagram that shows these four layers for any element. Hover each value to highlight it on the page. Learn to read that diagram and debugging gets much faster.</div>
+</section>
+
+<hr>
+<section>
+  <h2>The one line that saves you: <code>box-sizing: border-box</code></h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:12px;">
+      <p class="demo-label" style="margin-top:0;">content-box (default)</p>
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <div style="box-sizing:content-box;width:100px;padding:16px;border:4px solid #111;background:#fff;text-align:center;font-size:12px;">100px plus 32px padding plus 8px border, 140px wide total</div>
+      </div>
+      <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#b1005a;margin:6px 0 0;">Width here is <em>content</em> only. Padding and border get added on top, so boxes overflow their expected size.</p>
+    </div>
+    <div class="demo" style="background:#fff;padding:12px;">
+      <p class="demo-label" style="margin-top:0;">border-box (recommended)</p>
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <div style="box-sizing:border-box;width:100px;padding:16px;border:4px solid #111;background:#eef6ff;text-align:center;font-size:12px;">100px total, padding fits inside</div>
+      </div>
+      <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#0a7d33;margin:6px 0 0;">Width now includes padding and border. What you set is what you get.</p>
+    </div>
+  </div>
+<pre><code>/* put this FIRST in every stylesheet */
+* { box-sizing: border-box; }
+
+/* now width: 300px means total 300px, not 300 + padding + border */</code></pre>
+  <p>This is why <code>shared.css:1</code> starts with <code>* { box-sizing: border-box; }</code>. Copy that rule into every project.</p>
+</section>
+
+<hr>
+<section>
+  <h2>width / height, max-width, and margin auto</h2>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <div style="max-width:400px;margin:0 auto;background:#fff;border:1px solid #111;padding:10px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">
+      <code>max-width: 400px; margin: 0 auto;</code><br><small style="color:#666;">Caps at 400px but shrinks on small screens, and centers because it's a block with auto margins.</small>
+    </div>
+    <div style="width:140px;margin:12px auto 0;background:#fff;border:1px solid #111;padding:8px;text-align:center;font-family:-apple-system,sans-serif;font-size:12px;"><code>width:140px<br>margin:0 auto</code></div>
+  </div>
+<pre><code>/* classic centered container */
+.container {
+  max-width: 720px;   /* don't get wider than this */
+  margin: 0 auto;     /* center horizontally (block needs width/max-width) */
+  padding: 0 16px;    /* breathing room on mobile */
+}</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> <code>margin: 0 auto</code> only centers <em>block</em> elements with a set <code>width</code> or <code>max-width</code>. On inline elements or <code>width:auto</code> it does nothing. For flex or grid children, <code>margin: auto</code> centers on that axis too (see Module 9).</div>
+</section>
+
+<hr>
+<section>
+  <h2>Collapsing margins: the surprise</h2>
+  <p>Vertical margins between blocks collapse instead of adding together. They overlap rather than stack.</p>
+  <div class="demo collapse-demo">
+    <div style="margin:20px 0;background:#fff7cc;border:1px solid #e6d56c;">Box A, <code>margin: 20px 0</code></div>
+    <div style="margin:20px 0;background:#eef6ff;border:1px solid #a8c7f0;">Box B, <code>margin: 20px 0</code></div>
+    <p style="text-align:center;font-family:-apple-system,sans-serif;font-size:12px;color:#888;margin:8px 0;">The gap between A and B is 20px, not 40px, because the margins collapsed.</p>
+  </div>
+<pre><code>/* gap is 20px, not 40px */
+h2 { margin-bottom: 20px; }
+p  { margin-top: 20px; }  /* collapses with h2's bottom margin */</code></pre>
+  <p>To avoid it: add <code>padding</code> or <code>border</code> to the parent, use <code>gap</code> with flex or grid, or just account for it when spacing things out.</p>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: a button three ways</h2>
+  <p>Same visual button, three different box model choices.</p>
+  <div class="demo" style="background:#fff;padding:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+    <button style="height:36px;padding:0 16px;border:1px solid #111;background:#111;color:#fff;font-family:-apple-system,sans-serif;font-size:13px;border-radius:6px;cursor:pointer;">height:36px (brittle)</button>
+    <button style="padding:10px 16px;border:1px solid #111;background:#fff;font-family:-apple-system,sans-serif;font-size:13px;border-radius:6px;cursor:pointer;">padding:10px 16px (flexible)</button>
+    <button style="padding:10px 16px;border:2px solid #0b57d0;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;border-radius:999px;cursor:pointer;">rounded, with border</button>
+  </div>
+<pre><code>/* brittle, breaks if text wraps or font changes */
+.btn-fixed { height: 36px; }
+
+/* flexible, preferred */
+.btn { padding: 10px 16px; border: 1px solid #111; }
+
+/* fun variant */
+.btn-pill { border-radius: 999px; }</code></pre>
+  <div class="callout why"><strong>Why padding wins for buttons:</strong> <code>height</code> clips wrapped text and needs manual vertical centering. <code>padding</code> grows with the content and centers naturally.</div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Rebuild a button 3 ways (15 min)</strong>
+  <ol>
+    <li>Create three <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> elements.</li>
+    <li>Style one with <code>height</code>, one with <code>padding</code>, one with <code>border-radius: 999px</code>.</li>
+    <li>Inspect each in DevTools' Box Model panel and compare total sizes.</li>
+    <li>Add <code>* { box-sizing: border-box; }</code> and watch the numbers change.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../05-your-first-css/"><span>Prev</span>5: Your First CSS Rule</a>
+  <a href="../07-how-to-actually-center-a-div/"><span>Next</span>7: How to Actually Center a Div</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

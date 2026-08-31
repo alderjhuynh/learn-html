@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4: Containers: div, span &amp; When to Care</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.block-vs-inline span, .block-vs-inline div { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 1: HTML</p>
+<header>
+  <h1>4: Containers: div, span &amp; When to Care</h1>
+  <p><em>These are the two most boring tags, but they run the internet.</em> They're just boxes, but one stacks vertically, and one flows with text.</p>
+</header>
+<main>
+
+<section>
+  <h2>Block vs. inline: you can see it in HTML alone</h2>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <p class="demo-label" style="margin-top:0;">div = block (takes full width, stacks)</p>
+    <div style="border:1px solid #111;background:#eef6ff;padding:6px;margin:4px 0;">div one</div>
+    <div style="border:1px solid #111;background:#eef6ff;padding:6px;margin:4px 0;">div two — next line, full width</div>
+    <p class="demo-label">span = inline (flows with text, only as wide as content)</p>
+    <p style="margin:4px 0;border:1px dashed #bbb;padding:6px;">This is a paragraph with <span style="border:1px solid #111;background:#fff7cc;padding:1px 6px;">span one</span> and <span style="border:1px solid #111;background:#fff7cc;padding:1px 6px;">span two</span> inline. They don't break lines.</p>
+  </div>
+<pre><code>&lt;div&gt;block: new line, full width&lt;/div&gt;
+&lt;div&gt;another block&lt;/div&gt;
+
+&lt;p&gt;text &lt;span&gt;inline&lt;/span&gt; more text &lt;span&gt;inline&lt;/span&gt;&lt;/p&gt;</code></pre>
+  <div class="callout why"><strong>Why it matters:</strong> CSS <code>display</code> (Module 08) can change this, but the default matters for no-CSS readability and for which CSS properties work (<code>width</code> does nothing on inline. You'll see why inline "feels broken" in Module 08).</div>
+</section>
+
+<hr>
+<section>
+  <h2>div vs. span vs. semantic alternatives</h2>
+  <table>
+    <tr><th>Tag</th><th>Default</th><th>Use when…</th></tr>
+    <tr><td><code>&lt;div&gt;</code></td><td>block</td><td>Grouping for layout / styling, no better semantic tag</td></tr>
+    <tr><td><code>&lt;span&gt;</code></td><td>inline</td><td>Wrapping a few words for style (color, highlight)</td></tr>
+    <tr><td><code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>…</td><td>block</td><td>Content has meaning. Prefer over div</td></tr>
+  </table>
+<pre><code>&lt;!-- prefer semantic --&gt;
+&lt;section&gt;...&lt;/section&gt;   &lt;!-- not &lt;div class="section"&gt; --&gt;
+
+&lt;!-- div is fine for layout wrappers --&gt;
+&lt;div class="card-grid"&gt;
+  &lt;article class="card"&gt;...&lt;/article&gt;
+  &lt;article class="card"&gt;...&lt;/article&gt;
+&lt;/div&gt;
+
+&lt;!-- span for inline styling --&gt;
+&lt;p&gt;Price: &lt;span class="price"&gt;$12&lt;/span&gt;&lt;/p&gt;</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>id vs. class vs. data-*</h2>
+  <table>
+    <tr><th>Attr</th><th>Unique?</th><th>Use</th><th>Example</th></tr>
+    <tr><td><code>id</code></td><td>must be unique per page</td><td>Anchor targets, JS hooks, one-off</td><td><code>&lt;section id="pricing"&gt;</code></td></tr>
+    <tr><td><code>class</code></td><td>reusable</td><td>Styling (CSS), grouping</td><td><code>&lt;div class="card featured"&gt;</code></td></tr>
+    <tr><td><code>data-*</code></td><td>any</td><td>Custom data for JS, no styling</td><td><code>&lt;button data-count="3"&gt;</code></td></tr>
+  </table>
+  <div class="demo" style="background:#fff;padding:12px;font-family:ui-monospace,monospace;font-size:12px;">
+    <div>&lt;div <span style="color:#b1005a;">id</span>="hero"&gt;: one hero per page</div>
+    <div>&lt;div <span style="color:#0a7d33;">class</span>="card"&gt;: many cards</div>
+    <div>&lt;div <span style="color:#0b57d0;">data-state</span>="open"&gt;: JS reads this</div>
+  </div>
+  <div class="callout gotcha"><strong>Gotcha:</strong> <code>id</code> must not repeat. Duplicate <code>id="foo"</code> makes <code>#foo</code> links and <code>getElementById</code> unpredictable. Use <code>class</code> for repeated things.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Nesting rules &amp; validation</h2>
+  <ul>
+    <li><strong>Blocks can contain blocks and inline.</strong> <code>&lt;div&gt;&lt;p&gt;&lt;span&gt;…</code></li>
+    <li><strong>Inline cannot contain blocks.</strong> <code>&lt;span&gt;&lt;div&gt;…&lt;/div&gt;&lt;/span&gt;</code></li>
+    <li><strong><code>&lt;p&gt;</code> is picky:</strong> can't contain <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;ul&gt;</code>, or another <code>&lt;p&gt;</code>. The browser will auto-close it and your layout breaks mysteriously.</li>
+  </ul>
+<pre><code>&lt;!-- broken: p can't contain div --&gt;
+&lt;p&gt;Hello &lt;div&gt;oops&lt;/div&gt; world&lt;/p&gt;
+&lt;!-- browser renders as: &lt;p&gt;Hello &lt;/p&gt;&lt;div&gt;oops&lt;/div&gt; world --&gt;
+
+&lt;!-- correct --&gt;
+&lt;div&gt;&lt;p&gt;Hello&lt;/p&gt;&lt;div&gt;card&lt;/div&gt;&lt;p&gt;world&lt;/p&gt;&lt;/div&gt;</code></pre>
+  <p><a href="https://validator.w3.org/#validate_by_input">validator.w3.org</a> catches nesting errors. Paste your HTML, fix the red lines.</p>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: refactor this div soup</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="border:1px solid #d88;background:#fff5f5;padding:10px;font-family:ui-monospace,monospace;font-size:11px;overflow:auto;">
+      Before (div soup)<br>
+      &lt;div id="header"&gt;<br>&nbsp;&nbsp;&lt;div class="nav"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;Home&lt;/div&gt;<br>&nbsp;&nbsp;&lt;/div&gt;<br>&lt;/div&gt;<br>&lt;div class="main"&gt;<br>&nbsp;&nbsp;&lt;div class="post"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="title"&gt;Hi&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;body...&lt;/div&gt;<br>&nbsp;&nbsp;&lt;/div&gt;<br>&lt;/div&gt;
+    </div>
+    <div style="border:1px solid #8d8;background:#f5fff5;padding:10px;font-family:ui-monospace,monospace;font-size:11px;overflow:auto;">
+      After (semantic)<br>
+      &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&gt;Home&lt;/a&gt;<br>&nbsp;&nbsp;&lt;/nav&gt;<br>&lt;/header&gt;<br>&lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Hi&lt;/h2&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;body...&lt;/p&gt;<br>&nbsp;&nbsp;&lt;/article&gt;<br>&lt;/main&gt;
+    </div>
+  </div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Refactor:</strong>
+  <p>Take your Module 3 recipe/resume page and:</p>
+  <ol>
+    <li>Replace <code>div</code> soup with semantic tags where possible.</li>
+    <li>Use <code>class</code> for repeated cards/items, <code>id</code> only for anchor targets.</li>
+    <li>Wrap inline highlights in <code>&lt;span&gt;</code> (e.g., prices, labels).</li>
+    <li>Validate for zero errors.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../03-lists-tables-semantic/"><span>Prev</span>3: Lists &amp; Semantic</a>
+  <a href="../05-your-first-css/"><span>Next</span>5: Your First CSS Rule</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

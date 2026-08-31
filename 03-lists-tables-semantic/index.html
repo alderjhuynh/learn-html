@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3: Lists, Tables &amp; Semantic HTML</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 1: HTML</p>
+<header>
+  <h1>03: Lists, Tables &amp; Semantic HTML</h1>
+  <p><em>Div soup is a crime.</em> Browsers, screen readers, and your future self want tags that mean something.</p>
+</header>
+<main>
+
+<section>
+  <h2>Lists: ul, ol, li</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:12px;">
+      <p class="demo-label" style="margin-top:0;">Unordered (bullets)</p>
+      <ul style="margin:0;">
+        <li>Flour</li>
+        <li>Eggs</li>
+        <li>Milk</li>
+      </ul>
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;Flour&lt;/li&gt;
+  &lt;li&gt;Eggs&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+    </div>
+    <div class="demo" style="background:#fff;padding:12px;">
+      <p class="demo-label" style="margin-top:0;">Ordered (numbered)</p>
+      <ol style="margin:0;">
+        <li>Mix flour &amp; eggs</li>
+        <li>Add milk slowly</li>
+        <li>Fry 2 min/side</li>
+      </ol>
+<pre><code>&lt;ol&gt;
+  &lt;li&gt;Mix...&lt;/li&gt;
+  &lt;li&gt;Add...&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </div>
+  </div>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Only <code>&lt;li&gt;</code> can be a direct child of <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code>. Don't do <code>&lt;ul&gt;&lt;div&gt;&lt;li&gt;</code>. Nest lists by putting <code>&lt;ul&gt;</code> <em>inside</em> an <code>&lt;li&gt;</code>.</div>
+<pre><code>&lt;!-- nested list (correct) --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fruit
+    &lt;ul&gt;&lt;li&gt;Apple&lt;/li&gt;&lt;li&gt;Banana&lt;/li&gt;&lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Tables</h2>
+  <p>Tables are for <em>tabular data</em>, not layout. (We have flex/grid for that later.)</p>
+  <div class="demo" style="background:#fff;padding:12px;overflow-x:auto;">
+    <table style="margin:0;">
+      <thead>
+        <tr><th>Ingredient</th><th>Amount</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Flour</td><td>200g</td><td>AP or bread</td></tr>
+        <tr><td>Eggs</td><td>2</td><td>room temp</td></tr>
+        <tr><td>Milk</td><td>300ml</td><td>oat works</td></tr>
+      </tbody>
+    </table>
+  </div>
+<pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Ingredient&lt;/th&gt;&lt;th&gt;Amount&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Flour&lt;/td&gt;&lt;td&gt;200g&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+  <ul>
+    <li><code>&lt;thead&gt;</code>/<code>&lt;tbody&gt;</code>, optional but helpful for semantics &amp; styling.</li>
+    <li><code>&lt;th&gt;</code> = header cell (bold, semantic), <code>&lt;td&gt;</code> = data cell.</li>
+  </ul>
+</section>
+
+<hr>
+<section>
+  <h2>Semantic HTML: tags that mean things</h2>
+  <p>You <em>could</em> make everything a <code>&lt;div&gt;</code>. Please don't.</p>
+  <div class="demo" style="background:#fff;padding:12px;display:grid;gap:8px;">
+    <div style="display:grid;grid-template-columns:1fr;gap:6px;font-family:-apple-system,sans-serif;font-size:13px;">
+      <div style="border:1px solid #111;padding:6px;background:#f4f4f4;text-align:center;"><code>&lt;header&gt;</code>: site or section header</div>
+      <div style="border:1px solid #111;padding:6px;background:#eef6ff;text-align:center;"><code>&lt;nav&gt;</code>: navigation links</div>
+      <div style="border:1px solid #111;padding:6px;background:#fff;display:grid;gap:6px;">
+        <div style="text-align:center;color:#666;"><code>&lt;main&gt;</code>: primary content (one per page)</div>
+        <div style="border:1px dashed #888;padding:6px;background:#fafafa;text-align:center;"><code>&lt;section&gt;</code>: thematic grouping</div>
+        <div style="border:1px dashed #888;padding:6px;background:#fafafa;text-align:center;"><code>&lt;article&gt;</code>: self-contained (blog post, card)</div>
+      </div>
+      <div style="border:1px solid #111;padding:6px;background:#f4f4f4;text-align:center;"><code>&lt;footer&gt;</code>: footnotes, copyright</div>
+    </div>
+  </div>
+<pre><code>&lt;header&gt;logo + nav&lt;/header&gt;
+&lt;nav&gt;&lt;a&gt; links&lt;/nav&gt;
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;article&gt;Self-contained thing&lt;/article&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;© 2026&lt;/footer&gt;</code></pre>
+  <div class="callout why"><strong>Why it matters:</strong> Screen readers have shortcuts to jump between <code>&lt;nav&gt;</code>/<code>&lt;main&gt;</code>/<code>&lt;header&gt;</code>. SEO uses it. And "View Source" becomes skimmable, you can see structure, not 200 nested divs.</div>
+  <h3>Quick test: div soup vs. semantic</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-family:ui-monospace,monospace;font-size:11px;">
+    <div style="border:1px solid #d88;background:#fff5f5;padding:8px;overflow:auto;">This is div soup<br>&lt;div class="header"&gt;<br>&lt;div class="nav"&gt;<br>&lt;div class="main"&gt;<br>&lt;div class="post"&gt;</div>
+    <div style="border:1px solid #8d8;background:#f5fff5;padding:8px;overflow:auto;">Semantic<br>&lt;header&gt;<br>&lt;nav&gt;<br>&lt;main&gt;<br>&lt;article&gt;</div>
+  </div>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: a recipe with correct semantics</h2>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <article style="border:1px solid #ddd;padding:12px;background:#fafafa;">
+      <header><h3 style="margin:0;text-transform:none;letter-spacing:0;color:#000;font-size:16px;">Fluffy Pancakes</h3><p style="margin:4px 0 0;font-size:12px;color:#666;">By You · 20 min · Serves 4</p></header>
+      <section style="margin-top:10px;">
+        <h4 style="margin:0 0 4px;font-size:13px;">Ingredients</h4>
+        <ul style="margin:0 0 0 18px;font-size:13px;"><li>200g flour</li><li>2 eggs</li><li>300ml milk</li></ul>
+      </section>
+      <section style="margin-top:10px;">
+        <h4 style="margin:0 0 4px;font-size:13px;">Steps</h4>
+        <ol style="margin:0 0 0 18px;font-size:13px;"><li>Whisk dry ingredients.</li><li>Add eggs &amp; milk, mix until just combined.</li><li>Fry 2 min per side.</li></ol>
+      </section>
+      <footer style="margin-top:10px;font-size:11px;color:#888;">Tip: don't overmix. Lumps are fine.</footer>
+    </article>
+  </div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Mark up a recipe or resume:</strong>
+  <p>No CSS. Use only tags from Modules 01-03.</p>
+  <ul>
+    <li>Wrap navigation in <code>&lt;nav&gt;</code>, main content in <code>&lt;main&gt;</code>.</li>
+    <li>Each recipe step / job entry = <code>&lt;section&gt;</code> or <code>&lt;article&gt;</code>.</li>
+    <li>Ingredients / skills = <code>&lt;ul&gt;</code>. Steps / timeline = <code>&lt;ol&gt;</code>.</li>
+    <li>At least one <code>&lt;table&gt;</code> (nutrition facts / skills matrix).</li>
+  </ul>
+  <p>Validate: paste your HTML into <a href="https://validator.w3.org/#validate_by_input">validator.w3.org</a>. Zero errors is the goal.</p>
+</section>
+
+<div class="module-nav">
+  <a href="../02-links-images-paths/"><span>Prev</span>2: Links &amp; Paths</a>
+  <a href="../04-containers-div-span/"><span>Next</span>4: Containers</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

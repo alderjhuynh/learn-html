@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8: Display, Flow &amp; Why Inline Feels Broken</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.nav-demo { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-demo a { border: 1px solid #111; padding: 6px 12px; text-decoration: none; color: #111; background: #fff; font-family: -apple-system, sans-serif; font-size: 13px; }
+.hide-demo { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.hide-demo div { border: 1px solid #111; padding: 12px; text-align: center; font-family: -apple-system, sans-serif; font-size: 13px; background: #fff; }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 2: CSS</p>
+<header>
+  <h1>8: Display, Flow &amp; Why Inline Feels Broken</h1>
+  <p><em>Why can't I set width on this span?</em> Because inline elements ignore width and height. Here's how display and flow actually work.</p>
+</header>
+<main>
+
+<section>
+  <h2>block / inline / inline-block / none</h2>
+  <table>
+    <tr><th>display</th><th>Line break?</th><th>Respects width/height?</th><th>Typical</th></tr>
+    <tr><td><code>block</code></td><td>Yes, starts a new line, full width</td><td>Yes</td><td><code>div</code>, <code>p</code>, <code>h1</code>, <code>section</code></td></tr>
+    <tr><td><code>inline</code></td><td>No, flows with text</td><td>No (width/height ignored)</td><td><code>span</code>, <code>a</code>, <code>em</code></td></tr>
+    <tr><td><code>inline-block</code></td><td>No</td><td>Yes, a hybrid</td><td>Button-like spans</td></tr>
+    <tr><td><code>none</code></td><td>Removed entirely</td><td>Not applicable</td><td>Hidden</td></tr>
+  </table>
+
+  <div class="demo" style="background:#fff;padding:12px;">
+    <p class="demo-label" style="margin-top:0;">block: each takes its own line</p>
+    <div style="border:1px solid #111;background:#eef6ff;padding:6px;margin:4px 0;">block</div>
+    <div style="border:1px solid #111;background:#eef6ff;padding:6px;margin:4px 0;">block</div>
+    <p class="demo-label">inline: width is ignored</p>
+    <p style="border:1px dashed #bbb;padding:6px;">Text <span style="border:1px solid #111;background:#fff7cc;padding:4px;width:120px;height:40px;">span width:120px? nope</span> continues.</p>
+    <p class="demo-label">inline-block: width works</p>
+    <p style="border:1px dashed #bbb;padding:6px;">Text <span style="display:inline-block;border:1px solid #111;background:#d4edda;padding:4px;width:120px;text-align:center;">inline-block 120px</span> continues.</p>
+  </div>
+<pre><code>span { width: 120px; }              /* does nothing, inline ignores width */
+span { display: inline-block; width: 120px; } /* now it works */</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> <code>margin-top</code> and <code>margin-bottom</code> also do nothing on inline elements. If vertical spacing isn't working, check whether the element is inline.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Quick preview: flex and grid are just display values</h2>
+  <p><code>display: flex</code> and <code>display: grid</code> switch the <em>children's</em> layout mode. You don't need to master them yet, just recognize them.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">display: flex</p>
+      <div style="display:flex;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;text-align:center;">one</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;text-align:center;">two</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;text-align:center;">three</span></div>
+    </div>
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">display: grid (2 cols)</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">one</span><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">two</span><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">three</span><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">four</span></div>
+    </div>
+  </div>
+  <p>Deep dives are in Modules <a href="../09-flexbox/">9</a> and <a href="../10-grid/">10</a>.</p>
+</section>
+
+<hr>
+<section>
+  <h2>Hiding things: none vs. hidden vs. opacity</h2>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">
+      <div style="border:1px solid #111;padding:10px;"><code>display: none</code><br><small>Gone. No space. Screen readers skip it.</small></div>
+      <div style="visibility:hidden;border:1px solid #111;padding:10px;"><code>visibility: hidden</code><br><small>Invisible, but space remains</small></div>
+      <div style="opacity:0;border:1px solid #111;padding:10px;"><code>opacity: 0</code><br><small>Invisible, space remains, still clickable</small></div>
+    </div>
+    <p style="font-family:-apple-system,sans-serif;font-size:12px;color:#666;margin:8px 0 0;">Above, the middle box uses <code>visibility:hidden</code>, the right one uses <code>opacity:0</code>. Try selecting or clicking them: the opacity one still responds.</p>
+  </div>
+  <div class="hide-demo" style="margin:8px 0;">
+    <div style="background:#fff;"><code>display: none</code><br><span style="display:none;border:1px solid #111;padding:4px;margin-top:6px;">hidden box</span><em style="color:#888;">(removed from layout)</em></div>
+    <div style="background:#fff;"><code>visibility: hidden</code><br><span style="visibility:hidden;border:1px solid #111;padding:4px;margin-top:6px;display:inline-block;">hidden box</span><em style="color:#888;">(invisible, keeps space)</em></div>
+    <div style="background:#fff;"><code>opacity: 0</code><br><span style="opacity:0;border:1px solid #111;padding:4px;margin-top:6px;display:inline-block;">hidden box</span><em style="color:#888;">(transparent, still there)</em></div>
+  </div>
+<pre><code>.hidden-layout { display: none; }       /* removed, use for toggling */
+.hidden-visual { visibility: hidden; }  /* keeps layout gap */
+.transparent   { opacity: 0; }          /* for fades and transitions */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: horizontal nav three ways</h2>
+  <p>Same links, different <code>display</code>.</p>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <p class="demo-label" style="margin-top:0;">inline-block nav (older approach, watch the 4px gap)</p>
+    <nav style="border:1px dashed #bbb;padding:6px;">
+      <a href="#" onclick="return false;" style="display:inline-block;border:1px solid #111;padding:6px 10px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">Home</a>
+      <a href="#" onclick="return false;" style="display:inline-block;border:1px solid #111;padding:6px 10px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">About</a>
+      <a href="#" onclick="return false;" style="display:inline-block;border:1px solid #111;padding:6px 10px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">Contact</a>
+    </nav>
+    <p class="demo-label">flex nav (modern, no gaps)</p>
+    <nav style="display:flex;gap:6px;border:1px dashed #bbb;padding:6px;">
+      <a href="#" onclick="return false;" style="border:1px solid #111;padding:6px 10px;background:#eef6ff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">Home</a>
+      <a href="#" onclick="return false;" style="border:1px solid #111;padding:6px 10px;background:#eef6ff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">About</a>
+      <a href="#" onclick="return false;" style="border:1px solid #111;padding:6px 10px;background:#eef6ff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:13px;">Contact</a>
+    </nav>
+  </div>
+  <div class="callout gotcha"><strong>Gotcha:</strong> <code>inline-block</code> leaves 4px gaps caused by whitespace and newlines in the HTML. Flex with <code>gap</code> doesn't have that problem, which is a big reason flex replaced inline-block navs.</div>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Build a nav each way (15 min)</strong>
+  <ol>
+    <li>Create a <code>&lt;nav&gt;</code> with 4 links.</li>
+    <li>Version A: <code>a { display: inline-block; }</code>, notice the gaps.</li>
+    <li>Version B: <code>nav { display: flex; gap: 8px; }</code>, clean.</li>
+    <li>Version C: hide one link with each hiding method and compare the layout.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../07-how-to-actually-center-a-div/"><span>Prev</span>7: How to Actually Center a Div</a>
+  <a href="../09-flexbox/"><span>Next</span>9: Flexbox</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

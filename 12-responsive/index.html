@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12: Responsive or It Didn't Happen</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 3: CSS Layout</p>
+<header>
+  <h1>12: Responsive or It Didn't Happen</h1>
+  <p><em>Your site on your phone should not look broken.</em> One viewport tag, fluid units, and a single media query make it adapt to any width.</p>
+</header>
+<main>
+
+<section>
+  <h2>The viewport meta tag</h2>
+  <p>Without this tag, phones render the page at about 980px wide and shrink it to fit. Text becomes tiny.</p>
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+  <p>This line is in every module's <code>&lt;head&gt;</code>. With it, <code>width</code> equals the device width. Without it, mobile looks zoomed out.</p>
+  <div class="callout gotcha"><strong>Gotcha:</strong> If mobile looks tiny or zoomed out, you forgot the viewport meta. Check the head.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Units: %, em/rem, vh/vw</h2>
+  <table>
+    <tr><th>Unit</th><th>Relative to…</th><th>Use</th></tr>
+    <tr><td><code>%</code></td><td>parent</td><td>Fluid widths</td></tr>
+    <tr><td><code>em</code></td><td>own / parent font-size</td><td>Spacing that scales with text</td></tr>
+    <tr><td><code>rem</code></td><td>root (<code>html</code>) font-size</td><td>Consistent sizing</td></tr>
+    <tr><td><code>vh</code> / <code>vw</code></td><td>viewport height/width</td><td>Hero sections, full-screen</td></tr>
+  </table>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-family:-apple-system,sans-serif;font-size:13px;">
+      <div style="border:1px solid #111;padding:8px;"><code>width: 50%</code><br><div style="width:50%;background:#111;height:12px;margin-top:6px;"></div><small>half of parent</small></div>
+      <div style="border:1px solid #111;padding:8px;"><code>width: 50vw</code><br><div style="width:50vw;max-width:100%;background:#0b57d0;height:12px;margin-top:6px;"></div><small>half of viewport</small></div>
+      <div style="border:1px solid #111;padding:8px;"><code>font-size: 1.2rem</code><br><span style="font-size:1.2rem;">bigger than root</span></div>
+      <div style="border:1px solid #111;padding:8px;"><code>height: 40vh</code><br><div style="height:40px;background:#eef6ff;border:1px solid #a8c7f0;margin-top:6px;display:grid;place-items:center;font-size:11px;">40% of viewport height</div></div>
+    </div>
+  </div>
+<pre><code>html { font-size: 16px; } /* 1rem = 16px */
+h1 { font-size: 2rem; }   /* 32px */
+.card { padding: 1rem; width: 90%; max-width: 600px; }
+.hero { height: 60vh; }   /* 60% of viewport height */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Media queries: mobile first</h2>
+  <p>Write base styles for mobile, then add width with <code>min-width</code>. Use <code>max-width</code> only when you need to override desktop styles.</p>
+<pre><code>/* base: mobile (single column) */
+.cards { display: grid; gap: 12px; }
+
+/* tablet+ : 2 columns */
+@media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* desktop : 3 columns */
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}</code></pre>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <p class="demo-label" style="margin-top:0;">Resize window to see cards reflow. flex-wrap and grid auto-fit do this without queries.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="flex:1 1 140px;border:1px solid #111;padding:10px;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;text-align:center;">Card: flex:1 1 140px</div>
+      <div style="flex:1 1 140px;border:1px solid #111;padding:10px;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;text-align:center;">Card</div>
+      <div style="flex:1 1 140px;border:1px solid #111;padding:10px;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;text-align:center;">Card</div>
+    </div>
+  </div>
+  <div class="callout why"><strong>Free responsiveness:</strong> <code>flex-wrap: wrap</code> and <code>grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))</code> make grids responsive without media queries. Save queries for bigger layout shifts like stacking a header.</div>
+</section>
+
+<hr>
+<section>
+  <h2>max-width containers and auto-fit</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="max-width:480px;margin:0 auto;border:1px solid #111;padding:10px;background:#fafafa;font-family:-apple-system,sans-serif;font-size:13px;text-align:center;">
+      <code>max-width: 480px; margin: 0 auto;</code><br><small>Caps width, centers, but shrinks on mobile</small>
+    </div>
+  </div>
+<pre><code>/* container pattern */
+.container { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+/* grid that is responsive for free */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+/* auto-fit: as many 200px columns as fit; auto-fill is similar but keeps empty tracks */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Fluid type with clamp()</h2>
+  <p>One line that scales font smoothly between mobile and desktop with no media queries.</p>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <p style="margin:0;font-size:clamp(18px,4vw,32px);font-family:-apple-system,Helvetica,sans-serif;font-weight:700;">I am <code>clamp(18px, 4vw, 32px)</code>. Resize window to see me scale</p>
+    <p style="margin:6px 0 0;font-size:13px;color:#666;">Never smaller than 18px, never larger than 32px. Prefers 4vw in between.</p>
+  </div>
+<pre><code>h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+p  { font-size: clamp(0.95rem, 2vw, 1.05rem); }</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Live demo: one media query to stack header</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <style>
+      .resp-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid #111; padding: 10px; background: #fafafa; }
+      @media (max-width: 500px) {
+        .resp-header { flex-direction: column; align-items: stretch; }
+      }
+    </style>
+    <div class="resp-header">
+      <strong style="font-family:-apple-system,sans-serif;font-size:14px;">My Site</strong>
+      <span style="display:flex;gap:6px;flex-wrap:wrap;"><a href="#" onclick="return false;" style="border:1px solid #111;padding:4px 8px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:12px;">About</a><a href="#" onclick="return false;" style="border:1px solid #111;padding:4px 8px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:12px;">Work</a><a href="#" onclick="return false;" style="border:1px solid #111;padding:4px 8px;background:#111;color:#fff;text-decoration:none;font-family:-apple-system,sans-serif;font-size:12px;">Contact</a></span>
+    </div>
+    <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#888;margin:6px 0 0;">Shrink window below 500px and the header stacks vertically. That is the media query.</p>
+  </div>
+<pre><code>header { display: flex; justify-content: space-between; }
+@media (max-width: 500px) {
+  header { flex-direction: column; }
+}</code></pre>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Make all previous pages responsive (15 min)</strong>
+  <ol>
+    <li>Add <code>&lt;meta name="viewport"&gt;</code> if missing.</li>
+    <li>Wrap content in <code>.container { max-width: 720px; margin: 0 auto; padding: 0 16px; }</code></li>
+    <li>Add one media query that stacks nav or grid on small screens.</li>
+    <li>Try <code>clamp()</code> on one heading. Resize and watch it scale.</li>
+    <li>Test with DevTools device toolbar (phone and tablet).</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../11-position-stacking/"><span>Prev</span>11: Position &amp; Stacking</a>
+  <a href="../13-typography/"><span>Next</span>13: Typography That Doesn't Hurt Eyes</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

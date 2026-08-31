@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9: Flexbox</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.flex-demo { display: flex; gap: 8px; border: 1px solid #111; background: #fafafa; padding: 8px; min-height: 100px; }
+.flex-demo .item { background: #fff; border: 1px solid #111; padding: 10px 14px; font-family: -apple-system, sans-serif; font-size: 13px; text-align: center; }
+.flex-demo .item.tall { padding: 20px 14px; }
+</style>
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 3: CSS Layout</p>
+<header>
+  <h1>9: Flexbox</h1>
+  <p><em>Flexbox is the reason we stopped fighting with floats.</em> It lays elements out along a single axis, with full control over direction, spacing, and alignment.</p>
+</header>
+<main>
+
+<section>
+  <h2>Flex in 30 seconds</h2>
+  <p><code>display: flex</code> on a parent makes its children flex items, laid out along a <strong>main axis</strong> (row or column).</p>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <div style="display:flex;gap:8px;">
+      <div style="flex:1;border:1px solid #111;padding:10px;text-align:center;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;">flex:1</div>
+      <div style="flex:1;border:1px solid #111;padding:10px;text-align:center;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;">flex:1</div>
+      <div style="flex:1;border:1px solid #111;padding:10px;text-align:center;background:#eef6ff;font-family:-apple-system,sans-serif;font-size:13px;">flex:1</div>
+    </div>
+  </div>
+<pre><code>.parent { display: flex; gap: 8px; }
+.child  { flex: 1; } /* grow equally */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>The big four: direction, justify, align, gap</h2>
+  <h3>flex-direction</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">row (default)</p>
+      <div style="display:flex;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;">A</span><span style="border:1px solid #111;background:#fff;padding:6px;">B</span><span style="border:1px solid #111;background:#fff;padding:6px;">C</span></div>
+    </div>
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">column</p>
+      <div style="display:flex;flex-direction:column;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">A</span><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">B</span><span style="border:1px solid #111;background:#fff;padding:6px;text-align:center;">C</span></div>
+    </div>
+  </div>
+<pre><code>.row { display: flex; flex-direction: row; }
+.col { display: flex; flex-direction: column; }</code></pre>
+
+  <h3>justify-content: the main axis</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <p class="demo-label" style="margin-top:0;">space-between</p>
+    <div style="display:flex;justify-content:space-between;gap:6px;border:1px dashed #bbb;padding:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;">A</span><span style="border:1px solid #111;background:#fff;padding:6px;">B</span><span style="border:1px solid #111;background:#fff;padding:6px;">C</span></div>
+    <p class="demo-label">center</p>
+    <div style="display:flex;justify-content:center;gap:6px;border:1px dashed #bbb;padding:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;">A</span><span style="border:1px solid #111;background:#fff;padding:6px;">B</span><span style="border:1px solid #111;background:#fff;padding:6px;">C</span></div>
+  </div>
+<pre><code>/* main axis (row = horizontal) */
+.row { justify-content: space-between; } /* or center, flex-start, flex-end */</code></pre>
+
+  <h3>align-items: the cross axis</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:flex;align-items:center;gap:6px;border:1px dashed #bbb;padding:6px;height:80px;">
+      <span style="border:1px solid #111;background:#fff;padding:6px;">short</span>
+      <span style="border:1px solid #111;background:#fff;padding:18px 6px;">tall</span>
+      <span style="border:1px solid #111;background:#fff;padding:6px;">short</span>
+    </div>
+    <p style="font-family:-apple-system,sans-serif;font-size:11px;color:#888;margin:6px 0 0;"><code>align-items: center</code> centers children vertically within the row.</p>
+  </div>
+<pre><code>.row { align-items: center; } /* cross axis: row = vertical */</code></pre>
+
+  <h3>gap: replaces margins</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:flex;gap:16px;"><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;text-align:center;">gap 16px</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;text-align:center;">gap 16px</span></div>
+  </div>
+<pre><code>.parent { gap: 16px; } /* cleaner than margins on children */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Wrapping and growing</h2>
+  <h3>flex-wrap</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">nowrap (default), items squish</p>
+      <div style="display:flex;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;min-width:80px;text-align:center;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;min-width:80px;text-align:center;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;min-width:80px;text-align:center;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;flex:1;min-width:80px;text-align:center;">card</span></div>
+    </div>
+    <div class="demo" style="background:#fff;padding:10px;">
+      <p class="demo-label" style="margin-top:0;">wrap, flows to the next line</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;"><span style="border:1px solid #111;background:#fff;padding:6px;min-width:80px;text-align:center;flex:1;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;min-width:80px;text-align:center;flex:1;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;min-width:80px;text-align:center;flex:1;">card</span><span style="border:1px solid #111;background:#fff;padding:6px;min-width:80px;text-align:center;flex:1;">card</span></div>
+    </div>
+  </div>
+<pre><code>.grid { display: flex; flex-wrap: wrap; gap: 12px; }</code></pre>
+
+  <h3>flex: 1 and align-self</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:flex;gap:6px;height:80px;border:1px dashed #bbb;padding:6px;align-items:stretch;">
+      <span style="border:1px solid #111;background:#eef6ff;padding:6px;flex:1;display:grid;place-items:center;">flex:1</span>
+      <span style="border:1px solid #111;background:#fff;padding:6px;flex:2;display:grid;place-items:center;">flex:2 (twice as wide)</span>
+      <span style="border:1px solid #111;background:#fff;padding:6px;align-self:flex-end;">align-self:end</span>
+    </div>
+  </div>
+<pre><code>.a { flex: 1; }               /* grow 1 share */
+.b { flex: 2; }               /* grow 2 shares */
+.c { align-self: flex-end; }  /* override cross-axis for one child */</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Flex children can't shrink below their content size by default, so long text overflows. Fix it with <code>min-width: 0</code> (or <code>overflow: hidden</code>) on the flex child.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Common patterns</h2>
+  <h3>Nav bar</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <nav style="display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid #111;padding:8px;background:#fafafa;">
+      <strong style="font-family:-apple-system,sans-serif;font-size:14px;">Logo</strong>
+      <span style="display:flex;gap:6px;"><a href="#" onclick="return false;" style="border:1px solid #111;padding:4px 8px;background:#fff;text-decoration:none;color:#111;font-family:-apple-system,sans-serif;font-size:12px;">Home</a><a href="#" onclick="return false;" style="border:1px solid #111;padding:4px 8px;background:#111;color:#fff;text-decoration:none;font-family:-apple-system,sans-serif;font-size:12px;">Sign up</a></span>
+    </nav>
+  </div>
+<pre><code>nav { display: flex; justify-content: space-between; align-items: center; }</code></pre>
+
+  <h3>Card row that wraps</h3>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <div style="flex:1 1 160px;border:1px solid #111;padding:10px;background:#fff;font-family:-apple-system,sans-serif;font-size:13px;"><strong>Card</strong><br><small>flex: 1 1 160px, grows and shrinks from a 160px base</small></div>
+      <div style="flex:1 1 160px;border:1px solid #111;padding:10px;background:#fff;font-family:-apple-system,sans-serif;font-size:13px;"><strong>Card</strong><br><small>Wraps on small screens</small></div>
+      <div style="flex:1 1 160px;border:1px solid #111;padding:10px;background:#fff;font-family:-apple-system,sans-serif;font-size:13px;"><strong>Card</strong><br><small>No media query needed</small></div>
+    </div>
+  </div>
+<pre><code>.cards { display: flex; flex-wrap: wrap; gap: 12px; }
+.card  { flex: 1 1 160px; } /* grow, shrink, basis 160px */</code></pre>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Responsive card grid (20 min)</strong>
+  <ol>
+    <li>Create a container with 6 cards (<code>&lt;article class="card"&gt;</code>).</li>
+    <li><code>.cards { display: flex; flex-wrap: wrap; gap: 12px; }</code></li>
+    <li><code>.card { flex: 1 1 200px; border: 1px solid #ddd; padding: 12px; }</code></li>
+    <li>Resize the window; it should wrap automatically. Try long text with <code>min-width: 0</code>.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../08-display-flow/"><span>Prev</span>8: Display, Flow &amp; Why Inline Feels Broken</a>
+  <a href="../10-grid/"><span>Next</span>10: Grid</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

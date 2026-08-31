@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>17: Putting It All Together</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 4: Capstone</p>
+<header>
+  <h1>17: Putting It All Together <span class="badge">ship it</span></h1>
+  <p><em>You can stop following tutorials now.</em> Combine everything into one page you can send to someone.</p>
+</header>
+<main>
+
+<section>
+  <h2>What you are building</h2>
+  <p>One page. Pick one:</p>
+  <ul>
+    <li><strong>Portfolio</strong> with about, work, and contact sections</li>
+    <li><strong>Blog post</strong> with article, header, and footer (clone this course's layout)</li>
+    <li><strong>Landing page</strong> that clones one section of a real landing like Linear, Stripe, or Figma</li>
+  </ul>
+  <p>Must use: semantic HTML (03), flex or grid (09 or 10), responsive layout (12), typography (13), color and variables (14), form pseudo-classes (15), and one transform or transition (16). Check the checklist below.</p>
+</section>
+
+<hr>
+<section>
+  <h2>File organization</h2>
+<pre><code>my-site/
+  index.html
+  shared.css        # or style.css: variables, layout, components
+  images/
+    me.jpg
+  README.md         # optional: what you built + link</code></pre>
+  <h3>Naming with BEM-lite</h3>
+<pre><code>&lt;!-- block__element--modifier, just enough structure --&gt;
+&lt;section class="card card--featured"&gt;
+  &lt;h2 class="card__title"&gt;Hello&lt;/h2&gt;
+  &lt;p class="card__body"&gt;...&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+<pre><code>/* shared.css. organize top to bottom */
+:root { --bg:#fff; --fg:#111; --accent:#0b57d0; --radius:12px; } /* 1. vars */
+* { box-sizing: border-box; }                                      /* 2. reset */
+body { max-width: 720px; margin: 0 auto; }                        /* 3. base */
+.card { border: 1px solid #ddd; border-radius: var(--radius); }  /* 4. components */
+@media (max-width: 600px) { ... }                                 /* 5. responsive */</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Starter template to clone</h2>
+  <div class="demo" style="background:#fff;padding:0;overflow:hidden;">
+    <div style="border:1px solid #111;background:#fff;font-family:-apple-system,sans-serif;">
+      <header style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #ddd;">
+        <strong>Mira</strong><nav style="display:flex;gap:8px;"><a href="#" onclick="return false;" style="font-size:13px;color:#0b57d0;">Work</a><a href="#" onclick="return false;" style="font-size:13px;color:#0b57d0;">About</a><a href="#" onclick="return false;" style="font-size:13px;background:#111;color:#fff;padding:4px 8px;border-radius:6px;text-decoration:none;">Contact</a></nav>
+      </header>
+      <section style="padding:16px;">
+        <p style="margin:0;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#888;">Portfolio · 2026</p>
+        <h2 style="margin:6px 0 8px;border:none;padding:0;font-size:22px;">Design &amp; code that ships</h2>
+        <p style="margin:0;color:#444;font-size:14px;line-height:1.6;">I build small, fast sites, no frameworks, just HTML/CSS. Here's what I made recently.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px;">
+          <div style="border:1px solid #ddd;padding:10px;border-radius:8px;background:#fafafa;"><strong style="font-size:13px;">Project A</strong><br><small style="color:#666;">Landing page with flex and grid</small></div>
+          <div style="border:1px solid #ddd;padding:10px;border-radius:8px;background:#fafafa;"><strong style="font-size:13px;">Project B</strong><br><small style="color:#666;">Form with validation</small></div>
+          <div style="border:1px solid #ddd;padding:10px;border-radius:8px;background:#fafafa;"><strong style="font-size:13px;">Project C</strong><br><small style="color:#666;">Responsive article</small></div>
+        </div>
+      </section>
+      <section style="padding:12px 14px;border-top:1px solid #ddd;display:grid;gap:8px;">
+        <h3 style="margin:0;font-size:13px;">Get in touch</h3>
+        <form onsubmit="event.preventDefault();" style="display:grid;gap:8px;"><input placeholder="you@example.com" type="email" required style="border:1px solid #bbb;padding:8px;border-radius:6px;"><button style="background:#111;color:#fff;border:1px solid #111;padding:8px;border-radius:6px;cursor:pointer;">Send</button></form>
+      </section>
+      <footer style="padding:10px 14px;background:#f4f4f4;font-size:12px;color:#666;text-align:center;">© 2026 Mira. Built with HTML and CSS only</footer>
+    </div>
+  </div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mira's Portfolio&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;... nav ...&lt;/header&gt;
+  &lt;main&gt;
+    &lt;section&gt;... hero ...&lt;/section&gt;
+    &lt;section&gt;... work grid ...&lt;/section&gt;
+    &lt;section&gt;... contact form ...&lt;/section&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Checklist before ship</h2>
+  <table>
+    <tr><th>Check</th><th>How</th><th>Pass?</th></tr>
+    <tr><td>Valid HTML</td><td>Paste into <a href="https://validator.w3.org/#validate_by_input">validator.w3.org</a></td><td>0 errors</td></tr>
+    <tr><td>Responsive</td><td>DevTools device toolbar (320px, 768px, 1024px)</td><td>No horizontal scroll</td></tr>
+    <tr><td>Lighthouse</td><td>DevTools Lighthouse panel: Generate report</td><td>90+ on Performance and A11y</td></tr>
+    <tr><td>Keyboard a11y</td><td>Tab through. All interactive elements reachable, focus visible</td><td>Yes</td></tr>
+    <tr><td>Contrast</td><td>DevTools color picker shows contrast ratio</td><td>4.5:1 min</td></tr>
+    <tr><td>Links/images</td><td>All <code>href</code>/<code>src</code> relative, <code>alt</code> present</td><td>Yes</td></tr>
+    <tr><td>Shareable</td><td>Open in private window does it still work?</td><td>Yes</td></tr>
+  </table>
+</section>
+
+<hr>
+<section>
+  <h2>Deploy: drag, drop, done</h2>
+  <table>
+    <tr><th>Host</th><th>How</th><th>URL</th></tr>
+    <tr><td><strong>GitHub Pages</strong></td><td>Repo: Settings, Pages, Deploy from <code>main</code></td><td><code>you.github.io/my-site</code></td></tr>
+    <tr><td><strong>Netlify</strong></td><td>Drag folder to <code>app.netlify.com/drop</code></td><td><code>random-name.netlify.app</code></td></tr>
+    <tr><td><strong>Cloudflare Pages</strong></td><td>Drag folder</td><td><code>*.pages.dev</code></td></tr>
+  </table>
+  <p>No build step. Just HTML and CSS files. Any static host works.</p>
+<pre><code># quick local test before deploy
+python -m http.server 8000
+# then open http://localhost:8000</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>What comes next: JS teaser</h2>
+  <p>You have hit the ceiling of what HTML and CSS can do. Next:</p>
+  <ul>
+    <li><strong>JS 0:</strong> What JS does versus <code>:hover</code> and <code>:checked</code> hacks. Progressive enhancement.</li>
+    <li><strong>JS 1:</strong> DOM and events: <code>querySelector</code>, <code>addEventListener</code>, theme toggle.</li>
+    <li><strong>JS 2:</strong> Make this capstone interactive with a hamburger menu, form validation, and modal open and close.</li>
+  </ul>
+  <p style="font-family:-apple-system,sans-serif;font-size:13px;color:#666;">For now, try <code>:has()</code> and <code>:checked</code> with <code>label</code> to fake toggles without JS. Then you will want JS.</p>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Ship one page (30 to 60 min)</strong>
+  <ol>
+    <li>Build the portfolio, blog, or landing. Use every phase at least once.</li>
+    <li>Run the checklist above and fix what fails.</li>
+    <li>Deploy to GitHub Pages or Netlify drag and drop.</li>
+    <li>Send the link to someone. Ask: "What confused you?" Fix that and ship again.</li>
+  </ol>
+  <p><strong>Done?</strong> You can build a real webpage without crying. Everything after this is iteration.</p>
+</section>
+
+<div class="module-nav">
+  <a href="../16-transitions-animations/"><span>Prev</span>16: Transitions &amp; Animations</a>
+  <a href="../"><span>Home</span>Course map</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a> · <strong>You did it.</strong> Now go build something weird.</p></footer>
+</body>
+</html>

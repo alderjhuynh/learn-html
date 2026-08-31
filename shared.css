@@ -1,0 +1,232 @@
+/* shared.css — extracted from "how to actually center a div/style.css" + extensions for full course */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111;
+  background: #fff;
+}
+
+h1, h2, h3, h4 {
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  line-height: 1.25;
+  color: #000;
+}
+
+h1 { font-size: 32px; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 28px 0 8px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+h3 { font-size: 14px; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.04em; color: #555; }
+h4 { font-size: 15px; margin: 16px 0 6px; color: #222; }
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 32px 0;
+}
+
+p, li { overflow-wrap: break-word; }
+
+a { color: #0b57d0; text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #052e6e; }
+a:visited { color: #5b21b6; }
+
+nav ol, nav ul {
+  padding-left: 20px;
+}
+nav li { margin: 2px 0; font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 14px; }
+
+pre {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: #f4f4f4;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+pre code { font-size: 13px; background: none; padding: 0; border-radius: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  margin: 16px 0;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+
+th {
+  background: #f4f4f4;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+details {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  background: #fafafa;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+details summary { cursor: pointer; font-weight: 600; }
+details[open] summary { margin-bottom: 8px; }
+
+kbd {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  border: 1px solid #bbb;
+  border-bottom-width: 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+blockquote {
+  margin: 12px 0;
+  padding: 8px 14px;
+  border-left: 3px solid #ddd;
+  color: #444;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+footer { margin-top: 32px; }
+.course-footer { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; color: #666; }
+
+/* — Demos — */
+.demo {
+  border: 1px solid #bbb;
+  background: #fafafa;
+  min-height: 80px;
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 8px;
+  padding: 8px;
+}
+.demo.tall { height: 160px; }
+.demo .box {
+  background: #fff;
+  border: 1px solid #111;
+  padding: 8px 14px;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  text-align: center;
+}
+.demo .box.fixed {
+  width: 120px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+}
+.demo .box.fixed-width { width: 140px; }
+.demo .box.inline { display: inline-block; margin: 2px; padding: 6px 12px; }
+.demo-label {
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #777;
+  margin: 12px 0 4px;
+}
+
+/* badges */
+.badge {
+  display: inline-block;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: #f4f4f4;
+  color: #444;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+.badge.prereq { background: #fff7cc; border-color: #e6d56c; color: #665500; }
+.badge.new { background: #daf5df; border-color: #8fd19b; color: #14522a; }
+
+/* callouts */
+.callout {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 14px 0;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.callout.gotcha { background: #fff8e1; border-color: #f0d27a; }
+.callout.why { background: #eef6ff; border-color: #a8c7f0; }
+.callout.exercise { background: #eefaf0; border-color: #a8d8b0; }
+.callout strong { font-size: 13px; letter-spacing: 0.02em; }
+
+/* nav breadcrumb */
+.breadcrumb { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; color: #666; margin-bottom: 12px; }
+.breadcrumb a { color: #666; }
+.breadcrumb a:hover { color: #111; }
+
+/* module nav prev/next */
+.module-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  font-family: -apple-system, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.module-nav a {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #fafafa;
+  flex: 1;
+}
+.module-nav a:hover { background: #f0f0f0; border-color: #bbb; }
+.module-nav a span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #777; }
+
+/* landing grid */
+.module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+.module-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.module-card:hover { border-color: #999; background: #fafafa; }
+.module-card h3 { margin: 0 0 4px; font-size: 14px; color: #000; text-transform: none; letter-spacing: 0; }
+.module-card p { margin: 0; font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; color: #666; line-height: 1.4; }
+.module-card .num { font-family: ui-monospace, monospace; font-size: 11px; color: #888; }
+.phase-label { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin: 28px 0 10px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+
+/* inline demo helpers */
+.inline-demo { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; }

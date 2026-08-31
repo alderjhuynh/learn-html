@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2: Links, Images &amp; Not Breaking Paths</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 1: HTML</p>
+<header>
+  <h1>02: Links, Images &amp; Not Breaking Paths</h1>
+  <p><em>Why is my image a broken icon?</em> 90% of the time it's a path. Let's kill that bug forever.</p>
+</header>
+<main>
+
+<section>
+  <h2>&lt;a&gt;: the whole point of HTML</h2>
+  <p>A hyperlink looks like <code>&lt;a href="URL"&gt;text&lt;/a&gt;</code>. <code>a</code> is for <em>anchor</em>.</p>
+  <div class="demo" style="background:#fff;padding:14px;">
+    <p style="margin:0 0 8px;"><a href="https://example.com">An absolute link to example.com</a> <small style="color:#888;">(full URL, works anywhere)</small></p>
+    <p style="margin:0 0 8px;"><a href="../01-your-first-tag/">A relative link to Module 1</a> <small style="color:#888;">(relative to this file)</small></p>
+    <p style="margin:0 0 8px;"><a href="#demo-anchor">An anchor link. Jump down to a section</a></p>
+    <p style="margin:0;"><a href="https://example.com" target="_blank" rel="noopener">target="_blank" to a new tab</a> <small style="color:#888;">(add rel="noopener" for security)</small></p>
+  </div>
+<pre><code>&lt;a href="https://example.com"&gt;absolute (any site)&lt;/a&gt;
+&lt;a href="about.html"&gt;relative (same folder)&lt;/a&gt;
+&lt;a href="../index.html"&gt;up one folder&lt;/a&gt;
+&lt;a href="#section-id"&gt;jump within page&lt;/a&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;new tab&lt;/a&gt;</code></pre>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Don't use <code>href="#"</code> as a placeholder. It jumps to top and adds history. Use <code>href=""</code> or better, don't make it a link.</div>
+  <p id="demo-anchor" style="background:#eef6ff;border:1px solid #a8c7f0;padding:8px;border-radius:6px;">You landed on <code>#demo-anchor</code>. That's how anchor links work; they jump to their id, which in this case, <code>id="demo-anchor"</code>.</p>
+</section>
+
+<hr>
+<section>
+  <h2>&lt;img&gt;, and why alt text is not optional</h2>
+  <div class="demo" style="background:#fff;padding:14px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+    <figure style="margin:0;border:1px solid #ddd;padding:8px;background:#fafafa;max-width:220px;">
+      <img src="dog.png" alt="An image of my dog." width="220" height="140" style="display:block;max-width:100%;height:auto;">
+      <figcaption style="font-family:-apple-system,sans-serif;font-size:12px;color:#666;margin-top:6px;">A <code>&lt;figure&gt;</code> with <code>&lt;figcaption&gt;</code>. <code>alt</code> describes the image for screen readers.</figcaption>
+    </figure>
+    <div style="flex:1;min-width:180px;font-family:-apple-system,sans-serif;font-size:13px;">
+      <p style="margin:0 0 6px;"><strong>Broken image demo:</strong></p>
+      <img src="doesnt_exist.jpg" alt="alt text shows when the image fails." style="border:1px solid #ddd;padding:8px;background:#fff;max-width:100%;">
+      <p style="margin:6px 0 0;color:#666;font-size:12px;">If <code>src</code> is wrong you see a broken-icon plus the <code>alt</code> text.</p>
+    </div>
+  </div>
+<pre><code>&lt;img src="photo.jpg" alt="Cat loaf on keyboard, judging you" width="400" height="300"&gt;
+&lt;figure&gt;
+  &lt;img src="photo.jpg" alt="..."&gt;
+  &lt;figcaption&gt;Caption here&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+  <ul>
+    <li><code>alt</code> is required. Empty <code>alt=""</code> means "decorative, ignore". Otherwise describe it.</li>
+    <li><code>width</code>/<code>height</code> prevents layout shift while loading (because the browser reserves space).</li>
+  </ul>
+</section>
+
+<hr>
+<section>
+  <h2>File paths: <code>./</code>, <code>../</code>, and <code>/</code></h2>
+  <p>Assume this structure:</p>
+<pre><code>site/
+  index.html
+  about/
+    index.html
+  assets/
+    cat.jpg
+  css/
+    style.css</code></pre>
+  <table>
+    <tr><th>Path</th><th>Means</th><th>From <code>about/index.html</code></th></tr>
+    <tr><td><code>cat.jpg</code> / <code>./cat.jpg</code></td><td>same folder</td><td>incorrect. looks for <code>about/cat.jpg</code></td></tr>
+    <tr><td><code>../assets/cat.jpg</code></td><td>up one, then into assets</td><td>correct</td></tr>
+    <tr><td><code>/assets/cat.jpg</code></td><td>site root</td><td>works if served via http (not <code>file://</code>)</td></tr>
+    <tr><td><code>../css/style.css</code></td><td>up one, into css</td><td>correct</td></tr>
+  </table>
+  <div class="callout gotcha"><strong>Gotcha:</strong> Leading <code>/</code> means "from domain root". It works on <code>https://yoursite.com/</code> but <strong>breaks</strong> when opened as <code>file:///Users/you/site/index.html</code>. Use relative paths (<code>../</code>) while learning, or run a local server.</div>
+  <div class="callout why"><strong>Why it works:</strong> Browser resolves relative URLs against the current page's URL. The Network tab in DevTools shows 404s with the full resolved path.</div>
+</section>
+
+<hr>
+
+<section class="callout exercise">
+  <strong>Exercise: Link three pages:</strong>
+  <ol>
+    <li>Create <code>index.html</code>, <code>about.html</code>, <code>gallery/index.html</code>, and <code>assets/cat.jpg</code> (any image).</li>
+    <li>Make every page link to the other two with relative paths. Show <code>cat.jpg</code> on all three.</li>
+    <li>Break it on purpose with the wrong path, and check DevTools Network, then fix it.</li>
+  </ol>
+  <details><summary>Checklist</summary><ul><li>From <code>gallery/index.html</code>, cat is at <code>../assets/cat.jpg</code></li><li>From <code>gallery/index.html</code>, home is <code>../index.html</code></li><li>All links use relative, not <code>/</code></li></ul></details>
+</section>
+
+<div class="module-nav">
+  <a href="../01-your-first-tag/"><span>Prev</span>1: Your First Tag</a>
+  <a href="../03-lists-tables-semantic/"><span>Next</span>3: Lists, Tables &amp; Semantic</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>

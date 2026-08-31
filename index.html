@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML From Scratch</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.hero { margin: 12px 0 20px; }
+.hero p { color: #444; font-size: 17px; line-height: 1.5; }
+.stats { display: flex; gap: 16px; flex-wrap: wrap; margin: 14px 0; font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 13px; color: #666; }
+.stats span { border: 1px solid #ddd; padding: 4px 8px; border-radius: 999px; background: #fafafa; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Learn HTML &amp; CSS From Scratch</h1>
+  <p>Ever looked at a nice website and wondered if you could make your own? Wonder no longer!</p>
+</header>
+
+<div class="callout why">
+  Each module is short explanation plus a live demo with copy-pasteable code. Then you can see why it works and do an exercise. Open DevTools on any demo, change stuff, and watch it break. That's the point.
+</div>
+
+<nav style="font-family:-apple-system,Helvetica,Arial,sans-serif;font-size:14px;margin:14px 0;">
+  <strong>Quick start:</strong> Never done HTML? Start at <a href="00-how-the-web-works/">0: How the Web Works</a>. Know HTML? Jump to <a href="05-your-first-css/">05: Your First CSS Rule</a> or <a href="07-how-to-actually-center-a-div/">07: How to Actually Center a Div</a>.
+</nav>
+
+<div class="phase-label">Phase 0: Foundations</div>
+<div class="module-grid">
+  <a class="module-card" href="00-how-the-web-works/">
+    <div class="num">0</div>
+    <h3>How The Web Actually Works</h3>
+    <p>Spoiler alert: it's literally just files on someone else's computer.</p>
+  </a>
+  <a class="module-card" href="01-your-first-tag/">
+    <div class="num">1</div>
+    <h3>Your First HTML Tag</h3>
+    <p>Hello World but HTMLified. Boilerplate, tags, headings &amp; paragraphs.</p>
+  </a>
+</div>
+
+<div class="phase-label">Phase 1: HTML</div>
+<div class="module-grid">
+  <a class="module-card" href="02-links-images-paths/">
+    <div class="num">2</div>
+    <h3>Links, Images &amp; Not Breaking Paths</h3>
+    <p>Why is my image a broken icon? <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code> &amp; the <code>../</code> maze.</p>
+  </a>
+  <a class="module-card" href="03-lists-tables-semantic/">
+    <div class="num">3</div>
+    <h3>Lists, Tables &amp; Semantic HTML</h3>
+    <p>Div soup. Lists, tables, and tags that actually mean something.</p>
+  </a>
+  <a class="module-card" href="04-containers-div-span/">
+    <div class="num">4</div>
+    <h3>Containers: div, span &amp; When to Care</h3>
+    <p>The two most boring tags that run the internet. Block vs. inline, id vs. class.</p>
+  </a>
+</div>
+
+<div class="phase-label">Phase 2: CSS</div>
+<div class="module-grid">
+  <a class="module-card" href="05-your-first-css/">
+    <div class="num">5</div>
+    <h3>Your First CSS Rule</h3>
+    <p>Why is nothing changing? Oh, specificity. Selectors, cascade &amp; instant gratification.</p>
+  </a>
+  <a class="module-card" href="06-box-model/">
+    <div class="num">6</div>
+    <h3>The Box Model</h3>
+    <p>Everything is a rectangle. </p>
+  </a>
+  <a class="module-card" href="07-how-to-actually-center-a-div/">
+    <div class="num">7</div>
+    <h3>How to Actually Center a Div</h3>
+    <p>You've heard the joke, but what does it mean?</p>
+  </a>
+  <a class="module-card" href="08-display-flow/">
+    <div class="num">8</div>
+    <h3>Display, Flow &amp; Why Inline Feels Broken</h3>
+    <p>Why can't I set width on this span? block / inline / none / flex preview.</p>
+  </a>
+</div>
+
+<div class="phase-label">Phase 3: CSS Layout</div>
+<div class="module-grid">
+  <a class="module-card" href="09-flexbox/">
+    <div class="num">9</div>
+    <h3>Flexbox</h3>
+    <p>The reason we stopped using floats.</p>
+  </a>
+  <a class="module-card" href="10-grid/">
+    <div class="num">10</div>
+    <h3>Grid</h3>
+    <p>Spreadsheets, but good. Columns, rows, areas &amp; the flex-vs-grid flowchart.</p>
+  </a>
+  <a class="module-card" href="11-position-stacking/">
+    <div class="num">11</div>
+    <h3>Position &amp; Stacking</h3>
+    <p>How to put things on top of other things without regret. z-index demystified.</p>
+  </a>
+  <a class="module-card" href="12-responsive/">
+    <div class="num">12</div>
+    <h3>Responsive or It Didn't Happen</h3>
+    <p>Your site on your phone should not be a war crime. Media queries &amp; clamp().</p>
+  </a>
+</div>
+
+<div class="phase-label">Phase 4: Making It Not Ugly</div>
+<div class="module-grid">
+  <a class="module-card" href="13-typography/">
+    <div class="num">13</div>
+    <h3>Typography That Doesn't Hurt Eyes</h3>
+    <p>Pick two fonts. Not five. Hierarchy with size / weight / spacing.</p>
+  </a>
+  <a class="module-card" href="14-color-backgrounds/">
+    <div class="num">14</div>
+    <h3>Color, Backgrounds &amp; Borders</h3>
+    <p>Why your pretty color looks muddy. hex/hsl, gradients, shadows &amp; variables.</p>
+  </a>
+  <a class="module-card" href="15-forms-inputs/">
+    <div class="num">15</div>
+    <h3>Forms, Inputs &amp; Pseudo-Classes</h3>
+    <p>The browser gives you 80% of validation for free. :hover, :focus, ::before.</p>
+  </a>
+  <a class="module-card" href="16-transitions-animations/">
+    <div class="num">16</div>
+    <h3>Transitions &amp; "Wow" Without JS</h3>
+    <p>Motion for polish, not nausea. transform, transition &amp; keyframes.</p>
+  </a>
+  <a class="module-card" href="17-capstone/" style="border-color:#111;">
+    <div class="num">17</div>
+    <h3>Putting It All Together</h3>
+    <p>You can stop following tutorials now. Ship a page. Send the link.</p>
+  </a>
+</div>
+
+<hr>
+
+<section>
+  <p style="font-family:-apple-system,Helvetica,Arial,sans-serif;font-size:13px;color:#666;">Found a bug or typo? Open DevTools, edit locally, and send a PR. That's literally lesson 0.</p>
+</section>
+</body>
+</html>

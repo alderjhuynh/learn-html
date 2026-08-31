@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14: Color, Backgrounds &amp; Borders</title>
+<link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<p class="breadcrumb"><a href="../">Course home</a> · Phase 4: Making It Not Ugly</p>
+<header>
+  <h1>14: Color, Backgrounds &amp; Borders</h1>
+  <p><em>Why your pretty color looks muddy on screen.</em> Compare hex, rgb, and hsl, then build a palette with only a few colors.</p>
+</header>
+<main>
+
+<section>
+  <h2>Color formats</h2>
+  <table>
+    <tr><th>Format</th><th>Example</th><th>Notes</th></tr>
+    <tr><td><code>hex</code></td><td><code>#0b57d0</code></td><td>Most common; <code>#fff</code> = <code>#ffffff</code></td></tr>
+    <tr><td><code>rgb</code></td><td><code>rgb(11 87 208)</code></td><td>0-255 per channel; <code>rgb(11 87 208 / 0.5)</code> with alpha</td></tr>
+    <tr><td><code>hsl</code></td><td><code>hsl(217 89% 43%)</code></td><td>Hue/Sat/Light are intuitive to tweak</td></tr>
+    <tr><td>keyword</td><td><code>tomato, currentColor, transparent</code></td><td>Named; <code>currentColor</code> = element's <code>color</code></td></tr>
+  </table>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+      <div style="background:#0b57d0;color:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:12px;border-radius:6px;">#0b57d0<br><small>hex</small></div>
+      <div style="background:rgb(11 87 208 / 0.15);border:1px solid #0b57d0;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:12px;border-radius:6px;">rgb(… / 0.15)<br><small>transparent</small></div>
+      <div style="background:hsl(217 89% 43%);color:#fff;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:12px;border-radius:6px;">hsl(217…)<br><small>same blue</small></div>
+      <div style="background:#fff;border:2px solid currentColor;color:#0b57d0;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:12px;border-radius:6px;">currentColor<br><small>border = text color</small></div>
+    </div>
+  </div>
+<pre><code>.a { color: #0b57d0; }                    /* hex */
+.b { background: rgb(11 87 208 / 0.1); }  /* with alpha */
+.c { color: hsl(217 89% 43%); }           /* hsl */
+.d { border: 2px solid currentColor; }    /* matches color */</code></pre>
+  <div class="callout why"><strong>Pick with hsl:</strong> Need a lighter blue? Keep hue, bump lightness: <code>hsl(217 89% 60%)</code>. Hex is opaque for that.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Backgrounds and gradients</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:#eef6ff;border:1px solid #a8c7f0;padding:16px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">background-color</div>
+      <div style="background:linear-gradient(135deg,#0b57d0,#7c3aed);color:#fff;padding:16px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;border-radius:8px;">linear-gradient</div>
+      <div style="background:radial-gradient(circle at 30% 30%,#fff7cc,#f0d27a);border:1px solid #e6d56c;padding:16px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;border-radius:8px;">radial-gradient</div>
+      <div style="background:conic-gradient(from 0deg,#0b57d0,#7c3aed,#e91e63,#0b57d0);color:#fff;padding:16px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;border-radius:8px;">conic-gradient</div>
+    </div>
+  </div>
+<pre><code>.a { background-color: #eef6ff; }
+.b { background: linear-gradient(135deg, #0b57d0, #7c3aed); }
+.c { background: radial-gradient(circle, #fff7cc, #f0d27a); }</code></pre>
+  <p>Gradients are <code>background-image</code> under the hood, meaning you can layer them.</p>
+</section>
+
+<hr>
+<section>
+  <h2>Borders, radius, shadows</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="border:1px solid #111;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">border:1px solid #111</div>
+      <div style="border:1px solid #111;border-radius:12px;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;background:#fafafa;">border-radius:12px</div>
+      <div style="border:1px solid #ddd;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;background:#fff;">box-shadow</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
+      <div style="border:2px dashed #888;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;">dashed</div>
+      <div style="border:1px solid #111;border-radius:999px;padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;background:#111;color:#fff;">pill with 999px</div>
+      <div style="border:1px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.08);padding:12px;text-align:center;font-family:-apple-system,sans-serif;font-size:13px;background:#fff;">double shadow (layered)</div>
+    </div>
+  </div>
+<pre><code>.card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.08);
+}
+.pill { border-radius: 999px; } /* fully rounded */
+.circle { border-radius: 50%; width: 48px; height: 48px; }</code></pre>
+</section>
+
+<hr>
+<section>
+  <h2>Opacity &amp; contrast</h2>
+  <div class="demo" style="background:#fff;padding:10px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#111;color:#fff;padding:12px;font-family:-apple-system,sans-serif;font-size:13px;">
+        <span style="opacity:1;">opacity 1 is full</span><br>
+        <span style="opacity:0.6;">opacity 0.6 is muted</span><br>
+        <span style="opacity:0.3;">opacity 0.3 is faint</span>
+      </div>
+      <div style="background:#fff;border:1px solid #111;padding:12px;font-family:-apple-system,sans-serif;font-size:13px;">
+        <span style="color:#111;">contrast 21:1</span><br>
+        <span style="color:#888;">#888 on white is 3.5:1</span><br>
+        <span style="color:#bbb;">#bbb on white is 1.8:1</span><br>
+        <small style="color:#666;">Check with DevTools color picker for contrast ratio</small>
+      </div>
+    </div>
+  </div>
+  <div class="callout gotcha"><strong>A11y:</strong> Normal text needs 4.5:1 contrast (WCAG AA). DevTools color picker shows the ratio, so you can aim for it. Don't put light gray on white.</div>
+</section>
+
+<hr>
+<section>
+  <h2>Theme with CSS variables without JS</h2>
+  <div class="demo" style="background:#fff;padding:12px;">
+    <div style="--bg:#111;--fg:#fff;--accent:#7c3aed;background:var(--bg);color:var(--fg);padding:14px;border-radius:8px;font-family:-apple-system,sans-serif;font-size:13px;">
+      <div style="width:100%;height:6px;background:var(--accent);border-radius:999px;margin-bottom:10px;"></div>
+      <strong>CSS variables</strong> let you change <code>--accent</code> and shift the whole theme.<br>
+      <small style="opacity:0.7;"><code>--bg</code>, <code>--fg</code>, <code>--accent</code> at <code>:root</code></small>
+    </div>
+  </div>
+<pre><code>:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --accent: #0b57d0;
+  --radius: 12px;
+}
+.card {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+}</code></pre>
+  <p>Variables cascade, so you can override per section: <code>.dark { --bg: #111; --fg: #fff; }</code></p>
+</section>
+
+<section class="callout exercise">
+  <strong>Exercise: Theme switch with just CSS variables (20 min)</strong>
+  <ol>
+    <li>Define <code>--bg</code>, <code>--fg</code>, <code>--accent</code>, <code>--radius</code>, and <code>--shadow</code> on <code>:root</code>.</li>
+    <li>Build 3 cards using only variables for colors, borders, and shadows.</li>
+    <li>Duplicate cards inside <code>&lt;section class="dark"&gt;</code> with <code>.dark { --bg:#111; --fg:#fff; }</code> for instant dark mode with no JS.</li>
+    <li>Check contrast on both themes and fix any failures.</li>
+  </ol>
+</section>
+
+<div class="module-nav">
+  <a href="../13-typography/"><span>Prev</span>13: Typography</a>
+  <a href="../15-forms-inputs/"><span>Next</span>15: Forms &amp; Inputs</a>
+</div>
+</main>
+<footer class="course-footer"><hr><p><a href="../">Back to course home</a></p></footer>
+</body>
+</html>
