@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corner Shelf - Tiny Bookshop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="#">Corner Shelf</a>
+  <nav class="site-nav" aria-label="Primary">
+    <ul>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#visit">Visit</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a class="nav-cta" href="#newsletter">Newsletter</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__text">
+      <p class="eyebrow">Neighborhood bookshop · Since 2019</p>
+      <h1>Small shop, <br><span>well-read shelves.</span></h1>
+      <p class="lead">We buy slow, recommend honestly, and keep a chair by the window for anyone who wants to read a first chapter before buying.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#books">Browse staff picks</a>
+        <a class="btn btn--ghost" href="#visit">Find us</a>
+      </div>
+      <ul class="hero__meta">
+        <li><strong>1,200</strong> titles in store</li>
+        <li><strong>Open daily</strong> 9am - 7pm</li>
+        <li><strong>No algorithms,</strong> just humans</li>
+      </ul>
+    </div>
+    <div class="hero__art" aria-hidden="true">
+      <!-- decorative stack built with divs only, no image needed -->
+      <div class="stack">
+        <div class="stack__book stack__book--1"><span>Essays</span></div>
+        <div class="stack__book stack__book--2"><span>Poems</span></div>
+        <div class="stack__book stack__book--3"><span>Novels</span></div>
+        <div class="stack__book stack__book--4"><span>World Atlas</span></div>
+      </div>
+      <p class="hero__caption">Every book placed by hand.</p>
+    </div>
+  </section>
+
+  <!-- BOOKS GRID, grid auto-fit, flex, box model -->
+  <section id="books" class="section">
+    <div class="section__head">
+      <h2>Staff picks this month</h2>
+      <p>Hover to lift, that's a <code>transform</code> + <code>transition</code> (module 16).</p>
+    </div>
+
+    <div class="book-grid">
+      <article class="card">
+        <div class="card__cover" style="background: linear-gradient(135deg, #ffe8b3, #ffbf6b);">✦</div>
+        <h3 class="card__title">The Long Pause</h3>
+        <p class="card__author">M. Alvarez · Essays</p>
+        <p class="card__desc">On walking, waiting, and paying attention when nothing is happening.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>208</td></tr>
+          <tr><th>Staff note</th><td>"Read it on the bus. Missed my stop."</td></tr>
+        </table>
+      </article>
+
+      <article class="card">
+        <div class="card__cover" style="background: linear-gradient(135deg, #c7e8ff, #7ab4ff);">◐</div>
+        <h3 class="card__title">Maps for Lost Days</h3>
+        <p class="card__author">J. Okoro · Fiction</p>
+        <p class="card__desc">A family atlas drawn from memory, half wrong and completely true.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>312</td></tr>
+          <tr><th>Staff note</th><td>"Chapter 4 made us rearrange the shop."</td></tr>
+        </table>
+      </article>
+
+      <article class="card card--featured">
+        <div class="card__cover" style="background: linear-gradient(135deg, #d8f5d0, #8fd19b);">❦</div>
+        <span class="badge">Staff favorite</span>
+        <h3 class="card__title">How to Shelve Light</h3>
+        <p class="card__author">R. Chen · Poetry</p>
+        <p class="card__desc">Poems about windows, dust, and the color of 4pm in winter.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>96</td></tr>
+          <tr><th>Staff note</th><td>"We read one poem every morning at opening."</td></tr>
+        </table>
+      </article>
+
+      <article class="card">
+        <div class="card__cover" style="background: linear-gradient(135deg, #ffd6e7, #ff8fab);">✺</div>
+        <h3 class="card__title">Repair Manual</h3>
+        <p class="card__author">S. Patel · Nonfiction</p>
+        <p class="card__desc">Mending clothes, toasters, and conversations. Illustrated.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>176</td></tr>
+          <tr><th>Staff note</th><td>"Comes with a real needle tucked in."</td></tr>
+        </table>
+      </article>
+
+      <article class="card">
+        <div class="card__cover" style="background: linear-gradient(135deg, #e0d7ff, #9b8cff);">⬥</div>
+        <h3 class="card__title">The Quiet Street</h3>
+        <p class="card__author">L. Berg · Fiction</p>
+        <p class="card__desc">One street, 12 neighbors, 30 years.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>288</td></tr>
+          <tr><th>Staff note</th><td>"You will recognize someone you know."</td></tr>
+        </table>
+      </article>
+
+      <article class="card">
+        <div class="card__cover" style="background: linear-gradient(135deg, #fff2b3, #e6d56c);">◎</div>
+        <h3 class="card__title">Salt &amp; Syntax</h3>
+        <p class="card__author">K. Williams · Food / Language</p>
+        <p class="card__desc">Recipes told as grammar lessons. Bread as a dependent clause.</p>
+        <table class="card__meta">
+          <tr><th>Pages</th><td>224</td></tr>
+          <tr><th>Staff note</th><td>"The sourdough chapter works."</td></tr>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <!-- VISIT, flexbox + semantic HTML + table -->
+  <section id="visit" class="section section--split">
+    <div class="split__left">
+      <h2>Visit</h2>
+      <p>Corner on 5th &amp; Willow. Look for the green awning and the cart of $5 paperbacks outside.</p>
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Hours</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mon - Fri</td><td>9:00 - 19:00</td></tr>
+          <tr><td>Saturday</td><td>10:00 - 18:00</td></tr>
+          <tr><td>Sunday</td><td>10:00 - 17:00</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>Coffee from the shop next door welcome inside</li>
+        <li>One well-behaved dog at a time</li>
+        <li>We wrap gifts in old maps</li>
+      </ul>
+      <p><a href="#newsletter">Join the newsletter</a> for Saturday shelf notes.</p>
+    </div>
+    <div class="split__right">
+      <figure class="shop-figure">
+        <!-- inline SVG as <img> via data URI pattern — still an <img> with alt (module 02) -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='320' viewBox='0 0 480 320'%3E%3Crect width='480' height='320' fill='%23fafafa' stroke='%23ddd'/%3E%3Crect x='40' y='60' width='400' height='200' fill='none' stroke='%23111' stroke-width='2'/%3E%3Crect x='60' y='80' width='70' height='160' fill='%23fff' stroke='%23111'/%3E%3Crect x='140' y='80' width='70' height='160' fill='%23fff' stroke='%23111'/%3E%3Crect x='220' y='80' width='70' height='160' fill='%23fff' stroke='%23111'/%3E%3Crect x='300' y='80' width='70' height='160' fill='%23fff' stroke='%23111'/%3E%3Ctext x='240' y='285' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23666'%3Eillustration: four shelves, no JS%3C/text%3E%3C/svg%3E"
+             alt="Simple line illustration of four bookshelves inside a shop front"
+             width="480" height="320" loading="lazy">
+      </figure>
+      <blockquote>
+        "Came for a novel, left with three books and a recommendation I actually read."
+        <cite>- a regular, hopefully you soon</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- STORY, typography + max-width -->
+  <section id="story" class="section section--narrow">
+    <h2>A short history</h2>
+    <p>We opened in 2019 with two shelves and a borrowed cash box. The street was quieter then. We learned early that a small shop can't stock everything, so we stock what we love and can talk about for ten minutes without notes.</p>
+    <p>No bestseller wall. No algorithm. If you ask "what should I read next?" we ask what you last couldn't put down, what annoyed you, and whether you like footnotes. Then we walk you to one shelf and pull one book.</p>
+    <p>We are not trying to be big. We are trying to be <em>useful</em>, a place where the right book finds you faster than scrolling would.</p>
+    <details>
+      <summary>How we choose what to stock</summary>
+      <p>Three rules: (1) Someone on staff has read it. (2) It earns its spine space; we'd re-read it. (3) It pairs well with at least two other books in the shop, so we can make a little trail for you.</p>
+    </details>
+  </section>
+
+  <!-- NEWSLETTER FORM, module 15 -->
+  <section id="newsletter" class="section section--form">
+    <div class="form-card">
+      <h2>Get shelf notes on Saturdays</h2>
+      <p>One email. Three books. One sentence on why each. No spam, unsubscribe is one click and we mean it.</p>
+      <form action="#" method="get">
+        <div class="field">
+          <label for="name">First name</label>
+          <input id="name" name="name" type="text" placeholder="Mira" autocomplete="given-name" required minlength="2">
+        </div>
+        <div class="field">
+          <label for="email">Email <span aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <fieldset class="field field--choice">
+          <legend>What do you want more of?</legend>
+          <label class="choice"><input type="checkbox" name="pref" value="fiction" checked> Fiction</label>
+          <label class="choice"><input type="checkbox" name="pref" value="nonfiction"> Essays &amp; ideas</label>
+          <label class="choice"><input type="checkbox" name="pref" value="poetry"> Poetry</label>
+        </fieldset>
+        <div class="field">
+          <label for="how">How did you hear about us?</label>
+          <select id="how" name="how">
+            <option value="">Pick one…</option>
+            <option>Walked past</option>
+            <option>Friend told me</option>
+            <option>Course demo (hi!)</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn--primary btn--block" type="submit">Join! it's free.</button>
+        <p class="form__hint">Built with native HTML validation; try submitting empty and see <code>:focus-visible</code> + <code>:invalid</code> styles.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer__grid">
+    <div>
+      <strong>Corner Shelf</strong>
+      <p>5th &amp; Willow, open daily.<br><a href="mailto:hello@cornershelf.example">hello@cornershelf.example</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="#books">Books</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li><a href="#story">Story</a></li>
+      </ul>
+    </nav>
+    <p class="footer__note">© 2026 Corner Shelf. Built with HTML &amp; CSS only. Copy the View Source and make it yours. <a href="../">Back to course</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
